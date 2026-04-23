@@ -78,4 +78,39 @@ describe('sendMessage', () => {
     await sendMessage('line1\nline2', { postSendTimeoutMs: 500 });
     expect(h.readText()).toBe('line1\nline2');
   });
+
+  it('succeeds when ProseMirror collapses newlines to spaces in textContent', async () => {
+    // Simulate ChatGPT's real behaviour: the composer's textContent reads
+    // back with spaces where newlines were typed, because each line is
+    // wrapped in a separate <p>.
+    document.body.innerHTML = `
+      <form>
+        <div id="prompt-textarea" contenteditable="true"></div>
+        <button data-testid="send-button"></button>
+      </form>
+    `;
+    const composer = document.querySelector<HTMLElement>('#prompt-textarea')!;
+    const sendBtn = document.querySelector<HTMLButtonElement>('[data-testid="send-button"]')!;
+    (document as any).execCommand = vi.fn((cmd: string, _u: boolean, arg?: string) => {
+      if (cmd === 'selectAll' || cmd === 'delete') {
+        composer.textContent = '';
+        return true;
+      }
+      if (cmd === 'insertText' && typeof arg === 'string') {
+        composer.textContent = (composer.textContent || '') + arg;
+        return true;
+      }
+      if (cmd === 'insertLineBreak') {
+        // ProseMirror-style: newline appears as a space when read via textContent
+        composer.textContent = (composer.textContent || '') + ' ';
+        return true;
+      }
+      return false;
+    });
+    sendBtn.addEventListener('click', () => {
+      sendBtn.setAttribute('data-testid', 'stop-button');
+    });
+    const result = await sendMessage('multi\nline\nprompt', { postSendTimeoutMs: 500 });
+    expect(result).toEqual({ ok: true });
+  });
 });

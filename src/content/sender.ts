@@ -11,6 +11,14 @@ type Options = {
 const waitFrame = () => new Promise<void>((r) => requestAnimationFrame(() => r()));
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
+// ProseMirror wraps each input line in its own <p>, and `textContent` joins
+// paragraphs without the original newline — so "a\nb" becomes "a b" once read
+// back. Normalise both sides to collapse runs of whitespace before comparing,
+// so multi-line prompts still verify as successfully written.
+function normaliseWhitespace(s: string): string {
+  return s.replace(/\s+/g, ' ').trim();
+}
+
 async function writeTextViaExecCommand(el: HTMLElement, text: string): Promise<boolean> {
   el.focus();
   document.execCommand('selectAll', false);
@@ -21,7 +29,7 @@ async function writeTextViaExecCommand(el: HTMLElement, text: string): Promise<b
     if (line) document.execCommand('insertText', false, line);
   }
   await waitFrame();
-  return (el.textContent || '').replace(/\r/g, '') === text;
+  return normaliseWhitespace(el.textContent || '') === normaliseWhitespace(text);
 }
 
 async function writeTextViaEvents(el: HTMLElement, text: string): Promise<boolean> {
@@ -32,7 +40,7 @@ async function writeTextViaEvents(el: HTMLElement, text: string): Promise<boolea
   el.dispatchEvent(new InputEvent('beforeinput', { inputType: 'insertText', data: text, bubbles: true }));
   el.dispatchEvent(new InputEvent('input', { inputType: 'insertText', data: text, bubbles: true }));
   await waitFrame();
-  return (el.textContent || '') === text;
+  return normaliseWhitespace(el.textContent || '') === normaliseWhitespace(text);
 }
 
 export async function sendMessage(text: string, opts: Options = {}): Promise<SendResult> {

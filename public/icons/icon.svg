@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" shape-rendering="geometricPrecision">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#12b48c"/>
+      <stop offset="100%" stop-color="#0c8a68"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded-square background in ChatGPT green -->
+  <rect width="128" height="128" rx="26" fill="url(#bg)"/>
+
+  <!-- Three stacked "queued messages" bars -->
+  <rect x="22" y="34" width="64" height="12" rx="6" fill="#ffffff" opacity="0.95"/>
+  <rect x="22" y="56" width="74" height="12" rx="6" fill="#ffffff" opacity="0.80"/>
+  <rect x="22" y="78" width="50" height="12" rx="6" fill="#ffffff" opacity="0.65"/>
+
+  <!-- Play triangle indicating auto-send, anchored lower-right -->
+  <polygon points="84,82 110,98 84,114" fill="#ffffff"/>
+</svg>

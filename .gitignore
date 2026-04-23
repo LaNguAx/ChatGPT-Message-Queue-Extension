@@ -4,3 +4,20 @@ dist/
 *.log
 .vite/
 coverage/
+
+# Editor + OS junk
+.idea/
+.vscode/*
+!.vscode/extensions.json
+Thumbs.db
+
+# Playwright MCP dev artifacts (transient browser snapshots, console logs)
+.playwright-mcp/
+
+# Ad-hoc local screenshots from manual testing
+*-screenshot.png
+/*.png
+!public/**/*.png
+
+# User-specific CC plugin state
+.claude/settings.local.json

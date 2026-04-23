@@ -6,8 +6,10 @@ export default defineManifest({
   name: 'ChatGPT Queue',
   description: 'Queue prompts for ChatGPT; auto-send the next one when the current response finishes.',
   version: pkg.version,
+  icons: {
+    128: 'public/icons/icon-128.png',
+  },
   host_permissions: ['https://chatgpt.com/*'],
-  permissions: ['storage'],
   content_scripts: [
     {
       matches: ['https://chatgpt.com/*'],
@@ -15,5 +17,8 @@ export default defineManifest({
       run_at: 'document_idle',
     },
   ],
-  action: { default_title: 'ChatGPT Queue' },
+  action: {
+    default_title: 'ChatGPT Queue',
+    default_icon: { 128: 'public/icons/icon-128.png' },
+  },
 });

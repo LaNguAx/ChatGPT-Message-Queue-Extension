@@ -32,4 +32,22 @@ describe('storage', () => {
     expect(seen).toHaveLength(0);
     off();
   });
+
+  it('resets orphaned sending items to pending on load', async () => {
+    // Simulate a persisted state from a crashed session where an item was mid-send.
+    await chrome.storage.local.set({
+      [STORAGE_KEY_STATE]: {
+        ...DEFAULT_STATE,
+        items: [
+          { id: 'a', text: 'stuck', status: 'sending', addedAt: 1 },
+          { id: 'b', text: 'pending', status: 'pending', addedAt: 2 },
+          { id: 'c', text: 'done', status: 'done', addedAt: 3 },
+        ],
+        currentId: 'a',
+      },
+    });
+    const s = await loadState();
+    expect(s.items.map((i) => i.status)).toEqual(['pending', 'pending', 'done']);
+    expect(s.currentId).toBeUndefined();
+  });
 });

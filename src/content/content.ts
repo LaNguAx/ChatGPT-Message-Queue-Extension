@@ -1,5 +1,5 @@
 import { createQueue } from '../queue/queue';
-import { DetectorEvent, LOCK_HEARTBEAT_MS, STORAGE_KEY_LOCK } from '../queue/types';
+import { DetectorEvent, LOCK_HEARTBEAT_MS, LOCK_STALE_MS, STORAGE_KEY_LOCK } from '../queue/types';
 import { loadState, saveState, onStateChange } from '../storage/storage';
 import { acquireLock, heartbeat, isOwner, onLockChange, releaseLock } from '../storage/lock';
 import { createDetector } from './detector';
@@ -36,6 +36,7 @@ async function bootstrap() {
 
   // Lock lifecycle
   let readOnlyReason: string | null = null;
+  let acquireRetryTimer: ReturnType<typeof setTimeout> | undefined;
 
   const reflectOwnership = async () => {
     const mine = await isOwner(tabId);
@@ -46,13 +47,26 @@ async function bootstrap() {
     }
   };
 
+  // If we fail to acquire initially (e.g. previous tab's lock is still fresh),
+  // retry once the lock becomes stale. Without this, a page reload during auth
+  // leaves the tab permanently read-only until the user clicks "Take over".
+  const scheduleAcquireRetry = () => {
+    if (acquireRetryTimer) clearTimeout(acquireRetryTimer);
+    acquireRetryTimer = setTimeout(async () => {
+      const ok = await acquireLock(tabId);
+      await reflectOwnership();
+      if (!ok) scheduleAcquireRetry();
+    }, LOCK_STALE_MS + 500);
+  };
+
   onLockChange(() => void reflectOwnership());
 
   const heartbeatInterval = setInterval(() => {
     void heartbeat(tabId);
   }, LOCK_HEARTBEAT_MS);
 
-  await acquireLock(tabId);
+  const acquired = await acquireLock(tabId);
+  if (!acquired) scheduleAcquireRetry();
   await reflectOwnership();
 
   function renderPanel() {
@@ -72,13 +86,13 @@ async function bootstrap() {
 
   // Detector → queue driver
   let pendingRunTimer: ReturnType<typeof setTimeout> | undefined;
+  let sending = false;
 
   const onEvent = async (ev: DetectorEvent) => {
     if (!(await isOwner(tabId))) return;
     log.debug('detector event', ev);
 
     if (ev.type === 'error') {
-      // If we have a currently-sending item, mark it failed
       const curId = queue.state.currentId;
       if (curId) queue.markFailed(curId, ev.code);
       queue.pause();
@@ -99,25 +113,40 @@ async function bootstrap() {
   };
 
   const maybeFireNext = () => {
+    // Guard: never fire if a send is in-flight or an item is marked sending.
+    // Without this guard, every queue mutation (including markSending itself)
+    // re-schedules this function and races the in-flight sender.
+    if (sending) return;
+    if (queue.state.currentId) return;
+
     if (pendingRunTimer) clearTimeout(pendingRunTimer);
     if (!queue.state.running) return;
     const next = queue.nextPending();
     if (!next) return;
+
     pendingRunTimer = setTimeout(async () => {
+      pendingRunTimer = undefined;
       if (!queue.state.running) return;
+      if (queue.state.currentId) return; // Double-check — something else grabbed it
       const item = queue.nextPending();
       if (!item) return;
-      queue.markSending(item.id);
-      const result = await sendMessage(item.text);
-      if (!result.ok) {
-        queue.markFailed(item.id, result.code);
-        queue.pause();
+      sending = true;
+      try {
+        queue.markSending(item.id);
+        const result = await sendMessage(item.text);
+        if (!result.ok) {
+          queue.markFailed(item.id, result.code);
+          queue.pause();
+        }
+        // On success, wait for the detector's idle event to call markDone.
+      } finally {
+        sending = false;
       }
-      // On success we wait for the detector's idle event to call markDone.
     }, queue.state.delayMs);
   };
 
-  // Re-evaluate firing when queue state changes (user pressed Start, edited delay, etc.)
+  // Re-evaluate firing on Start / delay changes. `maybeFireNext`'s own guards
+  // (`sending`, `currentId`) prevent it from racing an in-flight send.
   queue.subscribe(() => maybeFireNext());
 
   const detector = createDetector((ev) => {
@@ -129,6 +158,7 @@ async function bootstrap() {
     clearInterval(heartbeatInterval);
     if (pendingRunTimer) clearTimeout(pendingRunTimer);
     if (saveTimer) clearTimeout(saveTimer);
+    if (acquireRetryTimer) clearTimeout(acquireRetryTimer);
     void releaseLock(tabId);
     detector.stop();
     panelHandle?.unmount();

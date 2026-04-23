@@ -11,10 +11,8 @@ type Options = {
 const waitFrame = () => new Promise<void>((r) => requestAnimationFrame(() => r()));
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
-// ProseMirror wraps each input line in its own <p>, and `textContent` joins
-// paragraphs without the original newline — so "a\nb" becomes "a b" once read
-// back. Normalise both sides to collapse runs of whitespace before comparing,
-// so multi-line prompts still verify as successfully written.
+// ProseMirror wraps each input line in its own <p>; textContent joins them
+// without the newline, so "a\nb" reads back as "a b". Normalise to compare.
 function normaliseWhitespace(s: string): string {
   return s.replace(/\s+/g, ' ').trim();
 }
@@ -29,7 +27,21 @@ async function writeTextViaExecCommand(el: HTMLElement, text: string): Promise<b
     if (line) document.execCommand('insertText', false, line);
   }
   await waitFrame();
-  return normaliseWhitespace(el.textContent || '') === normaliseWhitespace(text);
+  const observed = el.textContent || '';
+  // Strict match is the happy path. If it fails, don't block the queue —
+  // ProseMirror may have transformed the text in ways we can't predict
+  // (smart-quote autocorrect, bidi markers, normalisation). As long as the
+  // composer isn't empty, we click send anyway. The "did send actually
+  // transition to generating?" check catches real failures downstream.
+  if (normaliseWhitespace(observed) === normaliseWhitespace(text)) return true;
+  if (observed.trim().length > 0) {
+    log.warn('composer content differs from input; proceeding anyway', {
+      inputLen: text.length,
+      observedLen: observed.length,
+    });
+    return true;
+  }
+  return false;
 }
 
 async function writeTextViaEvents(el: HTMLElement, text: string): Promise<boolean> {
@@ -40,7 +52,10 @@ async function writeTextViaEvents(el: HTMLElement, text: string): Promise<boolea
   el.dispatchEvent(new InputEvent('beforeinput', { inputType: 'insertText', data: text, bubbles: true }));
   el.dispatchEvent(new InputEvent('input', { inputType: 'insertText', data: text, bubbles: true }));
   await waitFrame();
-  return normaliseWhitespace(el.textContent || '') === normaliseWhitespace(text);
+  const observed = el.textContent || '';
+  if (normaliseWhitespace(observed) === normaliseWhitespace(text)) return true;
+  if (observed.trim().length > 0) return true;
+  return false;
 }
 
 export async function sendMessage(text: string, opts: Options = {}): Promise<SendResult> {

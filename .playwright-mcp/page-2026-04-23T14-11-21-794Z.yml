@@ -1,0 +1,524 @@
+- generic [ref=e1]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e7]:
+    - generic [ref=e9]:
+      - generic:
+        - generic:
+          - generic:
+            - button "Open sidebar":
+              - img
+        - generic:
+          - generic:
+            - link "New chat":
+              - /url: /
+              - generic:
+                - img
+              - generic: New chat
+          - generic:
+            - button "Search chats":
+              - generic:
+                - img
+              - generic: Search chats
+          - generic:
+            - button "Recents":
+              - generic:
+                - img
+              - generic: Recents
+        - generic:
+          - generic:
+            - button "Open profile menu":
+              - generic:
+                - generic:
+                  - img "Profile image"
+      - generic [ref=e10]:
+        - heading "Chat history" [level=2] [ref=e11]
+        - navigation "Chat history" [ref=e12]:
+          - generic [ref=e15]:
+            - link "Home" [ref=e16] [cursor=pointer]:
+              - /url: /
+              - img [ref=e17]
+            - button "Close sidebar" [expanded] [ref=e20]:
+              - img [ref=e21]
+          - list [ref=e24]:
+            - listitem [ref=e25]:
+              - link "New chat Control Shift O" [ref=e135] [cursor=pointer]:
+                - /url: /
+                - generic [ref=e27]:
+                  - img [ref=e137]
+                  - generic [ref=e140]: New chat
+                - generic [ref=e141]:
+                  - generic "Control" [ref=e142]:
+                    - generic [ref=e143]: Ctrl
+                    - text: +
+                  - generic "Shift" [ref=e144]:
+                    - generic [ref=e145]: Shift
+                    - text: +
+                  - generic [ref=e147]: O
+            - listitem [ref=e32]:
+              - button "Search chats Control K" [ref=e148] [cursor=pointer]:
+                - generic [ref=e34]:
+                  - img [ref=e150]
+                  - generic [ref=e153]: Search chats
+                - generic [ref=e154]:
+                  - generic "Control" [ref=e155]:
+                    - generic [ref=e156]: Ctrl
+                    - text: +
+                  - generic [ref=e158]: K
+          - link "Codex" [ref=e39] [cursor=pointer]:
+            - /url: /codex/cloud
+            - generic [ref=e40]:
+              - img [ref=e42]
+              - generic [ref=e45]: Codex
+            - img [ref=e47]
+          - generic [ref=e50] [cursor=pointer]:
+            - img [ref=e52]
+            - generic [ref=e55]: More
+          - generic [ref=e159]:
+            - button "GPTs" [expanded] [ref=e161] [cursor=pointer]:
+              - heading "GPTs" [level=2] [ref=e162]
+            - list [ref=e163]:
+              - listitem [ref=e164]:
+                - link "Code Copilot" [ref=e165] [cursor=pointer]:
+                  - /url: /g/g-2DQzU5UZl-code-copilot
+                  - generic [ref=e170]: Code Copilot
+                  - button [ref=e172]:
+                    - img [ref=e174]
+            - link "Explore GPTs" [ref=e176] [cursor=pointer]:
+              - /url: /gpts
+              - img [ref=e178]
+              - generic [ref=e181]: Explore GPTs
+          - generic [ref=e182]:
+            - button "Projects" [expanded] [ref=e184] [cursor=pointer]:
+              - heading "Projects" [level=2] [ref=e185]
+            - list [ref=e186]:
+              - listitem [ref=e187]:
+                - button "New project" [ref=e188] [cursor=pointer]:
+                  - img [ref=e190]
+                  - generic [ref=e193]: New project
+              - listitem [ref=e194]:
+                - link "Show chats Bar Open project options for Bar" [ref=e195] [cursor=pointer]:
+                  - /url: /g/g-p-687d2c13b2f48191abf01ad68f545162-bar/project
+                  - generic [ref=e196]:
+                    - button "Show chats" [ref=e198]:
+                      - generic [ref=e199]:
+                        - img [ref=e203]
+                        - img [ref=e213]
+                    - generic [ref=e216]: Bar
+                  - button "Open project options for Bar" [ref=e218]:
+                    - img [ref=e220]
+              - listitem [ref=e222]:
+                - link "Show chats Taliya Open project options for Taliya" [ref=e223] [cursor=pointer]:
+                  - /url: /g/g-p-687d330172bc81919ea6bf4e6aa1ef45-taliya/project
+                  - generic [ref=e224]:
+                    - button "Show chats" [ref=e226]:
+                      - generic [ref=e227]:
+                        - img [ref=e231]
+                        - img [ref=e241]
+                    - generic [ref=e244]: Taliya
+                  - button "Open project options for Taliya" [ref=e246]:
+                    - img [ref=e248]
+              - listitem [ref=e250]:
+                - link "Show chats Voice Agent Open project options for Voice Agent" [ref=e251] [cursor=pointer]:
+                  - /url: /g/g-p-69de1dc257588191a763611f2ee35205-voice-agent/project
+                  - generic [ref=e252]:
+                    - button "Show chats" [ref=e254]:
+                      - generic [ref=e255]:
+                        - img [ref=e259]
+                        - img [ref=e269]
+                    - generic [ref=e272]: Voice Agent
+                  - button "Open project options for Voice Agent" [ref=e274]:
+                    - img [ref=e276]
+              - listitem [ref=e278]:
+                - link "Show chats WORK Open project options for WORK" [ref=e279] [cursor=pointer]:
+                  - /url: /g/g-p-686cb86d5adc8191bab6a9300fb347ad-work/project
+                  - generic [ref=e280]:
+                    - button "Show chats" [ref=e282]:
+                      - generic [ref=e283]:
+                        - img [ref=e287]
+                        - img [ref=e297]
+                    - generic [ref=e300]: WORK
+                  - button "Open project options for WORK" [ref=e302]:
+                    - img [ref=e304]
+              - listitem [ref=e306]:
+                - link "Show chats Gaya Open project options for Gaya" [ref=e307] [cursor=pointer]:
+                  - /url: /g/g-p-68c305f963d88191b00a43e70c41868e-gaya/project
+                  - generic [ref=e308]:
+                    - button "Show chats" [ref=e310]:
+                      - generic [ref=e311]:
+                        - img [ref=e315]
+                        - img [ref=e325]
+                    - generic [ref=e328]: Gaya
+                  - button "Open project options for Gaya" [ref=e330]:
+                    - img [ref=e332]
+              - listitem [ref=e334]:
+                - generic [ref=e335] [cursor=pointer]:
+                  - img [ref=e337]
+                  - generic [ref=e340]: More
+          - generic [ref=e341]:
+            - button "Recents" [expanded] [ref=e343] [cursor=pointer]:
+              - heading "Recents" [level=2] [ref=e344]
+            - list [ref=e346]:
+              - listitem [ref=e815]:
+                - link "הכנה לראיון Backend" [ref=e816] [cursor=pointer]:
+                  - /url: /c/69ea2876-7c38-83eb-ba3d-aab90f50003c
+                  - generic [ref=e818]: הכנה לראיון Backend
+                  - button "Open conversation options for הכנה לראיון Backend" [ref=e821]:
+                    - img [ref=e823]
+              - listitem [ref=e756]:
+                - link "Birds Description" [ref=e825] [cursor=pointer]:
+                  - /url: /c/69ea2851-1ac8-83eb-b9dc-38e9c12bf236
+                  - generic [ref=e759]: Birds Description
+                  - button "Open conversation options for Birds Description" [ref=e826]:
+                    - img [ref=e764]
+              - listitem [ref=e397]:
+                - link "הכנה לראיון עבודה Backend" [ref=e398] [cursor=pointer]:
+                  - /url: /c/69e9eebf-0520-83eb-a5a7-769d1ca1360f
+                  - generic [ref=e400]: הכנה לראיון עבודה Backend
+                  - generic [ref=e401]:
+                    - button "Open conversation options for הכנה לראיון עבודה Backend" [ref=e767]:
+                      - img [ref=e769]
+                    - img [ref=e772]
+              - listitem [ref=e347]:
+                - link "Cat Description" [ref=e348] [cursor=pointer]:
+                  - /url: /c/69ea2798-fb44-83eb-81bf-9ed1bfd1c575
+                  - generic [ref=e350]: Cat Description
+                  - button "Open conversation options for Cat Description" [ref=e353]:
+                    - img [ref=e355]
+              - listitem [ref=e357]:
+                - link "User Request 1" [ref=e358] [cursor=pointer]:
+                  - /url: /c/69ea270d-84a8-83eb-80cd-37167d07cc4a
+                  - generic [ref=e360]: User Request 1
+                  - button "Open conversation options for User Request 1" [ref=e363]:
+                    - img [ref=e365]
+              - listitem [ref=e367]:
+                - link "Red response request" [ref=e368] [cursor=pointer]:
+                  - /url: /c/69ea2672-cfa4-83eb-8e1e-eccdd9ba7968
+                  - generic [ref=e370]: Red response request
+                  - button "Open conversation options for Red response request" [ref=e373]:
+                    - img [ref=e375]
+              - listitem [ref=e377]:
+                - link "Alpha request" [ref=e378] [cursor=pointer]:
+                  - /url: /c/69ea25d2-e798-83eb-90c3-a0b596dfffce
+                  - generic [ref=e380]: Alpha request
+                  - button "Open conversation options for Alpha request" [ref=e383]:
+                    - img [ref=e385]
+              - listitem [ref=e387]:
+                - link "One response" [ref=e388] [cursor=pointer]:
+                  - /url: /c/69ea24db-75dc-83eb-a13e-a5d31896d007
+                  - generic [ref=e390]: One response
+                  - button "Open conversation options for One response" [ref=e393]:
+                    - img [ref=e395]
+              - listitem [ref=e407]:
+                - link "שאלות למשרת Backend" [ref=e408] [cursor=pointer]:
+                  - /url: /c/69e9eaa0-476c-83eb-9a4e-ae01613832a1
+                  - generic [ref=e410]: שאלות למשרת Backend
+                  - button "Open conversation options for שאלות למשרת Backend" [ref=e413]:
+                    - img [ref=e415]
+              - listitem [ref=e417]:
+                - link "הכנה לראיון עבודה Backend" [ref=e418] [cursor=pointer]:
+                  - /url: /c/69e9ee97-2814-83eb-bf9c-379fd8a569b6
+                  - generic [ref=e420]: הכנה לראיון עבודה Backend
+                  - button "Open conversation options for הכנה לראיון עבודה Backend" [ref=e423]:
+                    - img [ref=e425]
+              - listitem [ref=e427]:
+                - link "הכנה לראיון עבודה Backend" [ref=e428] [cursor=pointer]:
+                  - /url: /c/69e9ee80-19d4-83eb-8467-8cdb4357df55
+                  - generic [ref=e430]: הכנה לראיון עבודה Backend
+                  - button "Open conversation options for הכנה לראיון עבודה Backend" [ref=e433]:
+                    - img [ref=e435]
+              - listitem [ref=e437]:
+                - link "הכנה לראיון Backend Microservices, unread" [ref=e438] [cursor=pointer]:
+                  - /url: /c/69e9ee77-2514-83eb-ac99-e678b3f88963
+                  - generic "הכנה לראיון Backend Microservices" [ref=e440]
+                  - button "Open conversation options for הכנה לראיון Backend Microservices" [ref=e444]:
+                    - img [ref=e446]
+              - listitem [ref=e450]:
+                - link "הכנה לראיון ארכיטקטורת מיקרו-שירותים" [ref=e451] [cursor=pointer]:
+                  - /url: /c/69e9ed67-e784-83eb-b821-0e4a29d5cd8a
+                  - generic "הכנה לראיון ארכיטקטורת מיקרו-שירותים" [ref=e453]
+                  - button "Open conversation options for הכנה לראיון ארכיטקטורת מיקרו-שירותים" [ref=e456]:
+                    - img [ref=e458]
+              - listitem [ref=e460]:
+                - link "HR Call for Backend Role" [ref=e461] [cursor=pointer]:
+                  - /url: /c/69e67140-a564-8384-ae4b-daeab2cf0a4f
+                  - generic [ref=e463]: HR Call for Backend Role
+                  - button "Open conversation options for HR Call for Backend Role" [ref=e466]:
+                    - img [ref=e468]
+              - listitem [ref=e470]:
+                - link "מיקרוסרביסים למועמדות עבודה" [ref=e471] [cursor=pointer]:
+                  - /url: /c/69e9ea00-437c-83eb-9e3f-1aea4a98018c
+                  - generic [ref=e473]: מיקרוסרביסים למועמדות עבודה
+                  - button "Open conversation options for מיקרוסרביסים למועמדות עבודה" [ref=e476]:
+                    - img [ref=e478]
+              - listitem [ref=e480]:
+                - link "Spring Cloud Gateway vs Kubernetes" [ref=e481] [cursor=pointer]:
+                  - /url: /c/69e9dd3a-abbc-83eb-bb49-5a2b05a81790
+                  - generic "Spring Cloud Gateway vs Kubernetes" [ref=e483]
+                  - button "Open conversation options for Spring Cloud Gateway vs Kubernetes" [ref=e486]:
+                    - img [ref=e488]
+              - listitem [ref=e490]:
+                - link "Java Main Thread Blocking" [ref=e491] [cursor=pointer]:
+                  - /url: /c/69e93dde-2070-83eb-ab82-cf77b52e9b71
+                  - generic [ref=e493]: Java Main Thread Blocking
+                  - button "Open conversation options for Java Main Thread Blocking" [ref=e496]:
+                    - img [ref=e498]
+              - listitem [ref=e500]:
+                - link "הוספת מים לתינוק" [ref=e501] [cursor=pointer]:
+                  - /url: /c/69e8d55a-7124-83eb-a46b-592bfc4b80e8
+                  - generic [ref=e503]: הוספת מים לתינוק
+                  - button "Open conversation options for הוספת מים לתינוק" [ref=e506]:
+                    - img [ref=e508]
+              - listitem [ref=e510]:
+                - link "דג עם קשקשים וסנפירים" [ref=e511] [cursor=pointer]:
+                  - /url: /c/69e886ae-eb94-83eb-b551-eed39fc68d1c
+                  - generic [ref=e513]: דג עם קשקשים וסנפירים
+                  - button "Open conversation options for דג עם קשקשים וסנפירים" [ref=e516]:
+                    - img [ref=e518]
+              - listitem [ref=e520]:
+                - link "Roblox player base stats" [ref=e521] [cursor=pointer]:
+                  - /url: /c/69e80637-3c6c-8384-ab06-edbdc6950c5d
+                  - generic [ref=e523]: Roblox player base stats
+                  - button "Open conversation options for Roblox player base stats" [ref=e526]:
+                    - img [ref=e528]
+              - listitem [ref=e530]:
+                - link "הרגשת צלילים דרך הרגליים" [ref=e531] [cursor=pointer]:
+                  - /url: /c/69e7f3c7-b054-838b-a750-c1f064bf92a9
+                  - generic [ref=e533]: הרגשת צלילים דרך הרגליים
+                  - button "Open conversation options for הרגשת צלילים דרך הרגליים" [ref=e536]:
+                    - img [ref=e538]
+              - listitem [ref=e540]:
+                - link "Monolith to Microservices Path" [ref=e541] [cursor=pointer]:
+                  - /url: /c/69e7e6b0-66bc-8396-bd75-77c1c78f33e7
+                  - generic [ref=e543]: Monolith to Microservices Path
+                  - button "Open conversation options for Monolith to Microservices Path" [ref=e546]:
+                    - img [ref=e548]
+              - listitem [ref=e550]:
+                - link "Microservices Architecture Overview" [ref=e551] [cursor=pointer]:
+                  - /url: /c/69e7d73e-ea98-838d-9221-e965fc322a76
+                  - generic "Microservices Architecture Overview" [ref=e553]
+                  - button "Open conversation options for Microservices Architecture Overview" [ref=e556]:
+                    - img [ref=e558]
+              - listitem [ref=e560]:
+                - link "API Gateways in Microservices" [ref=e561] [cursor=pointer]:
+                  - /url: /c/69e738cd-acc4-8394-bfaf-ebc23e09591f
+                  - generic [ref=e563]: API Gateways in Microservices
+                  - button "Open conversation options for API Gateways in Microservices" [ref=e566]:
+                    - img [ref=e568]
+              - listitem [ref=e570]:
+                - link "Spring Boot Run Guide" [ref=e571] [cursor=pointer]:
+                  - /url: /c/69e777b7-94d0-8395-a0d6-36cc751a5adb
+                  - generic [ref=e573]: Spring Boot Run Guide
+                  - button "Open conversation options for Spring Boot Run Guide" [ref=e576]:
+                    - img [ref=e578]
+              - listitem [ref=e580]:
+                - link "WebSocket Connection Messages" [ref=e581] [cursor=pointer]:
+                  - /url: /c/69e747fc-fcc4-8396-b870-a68248a606fe
+                  - generic [ref=e583]: WebSocket Connection Messages
+                  - button "Open conversation options for WebSocket Connection Messages" [ref=e586]:
+                    - img [ref=e588]
+              - listitem [ref=e590]:
+                - link "IntelliJ JDK Setup" [ref=e591] [cursor=pointer]:
+                  - /url: /c/69e68d84-8d10-838a-b502-261daa4b2dd8
+                  - generic [ref=e593]: IntelliJ JDK Setup
+                  - button "Open conversation options for IntelliJ JDK Setup" [ref=e596]:
+                    - img [ref=e598]
+              - listitem [ref=e600]:
+                - link "כאב בטן וגרון" [ref=e601] [cursor=pointer]:
+                  - /url: /c/69e67fcf-2c98-8395-b23b-e993c3e96a28
+                  - generic [ref=e603]: כאב בטן וגרון
+                  - button "Open conversation options for כאב בטן וגרון" [ref=e606]:
+                    - img [ref=e608]
+          - button "Itay itay, open profile menu" [ref=e59] [cursor=pointer]:
+            - img "Profile image" [ref=e630]
+            - generic [ref=e62]:
+              - generic [ref=e64]: Itay itay
+              - generic [ref=e67]: Plus
+    - generic [ref=e69]:
+      - banner:
+        - generic [ref=e633]:
+          - button "Try Codex" [ref=e634] [cursor=pointer]:
+            - generic [ref=e635]:
+              - img [ref=e637]
+              - generic [ref=e639]: Try Codex
+          - button "Dismiss upgrade reminder" [ref=e640] [cursor=pointer]:
+            - img [ref=e641]
+        - button "Model selector" [ref=e71] [cursor=pointer]:
+          - generic [ref=e72]: ChatGPT
+          - img [ref=e73]
+        - generic [ref=e77]:
+          - button "Share" [ref=e775] [cursor=pointer]:
+            - generic [ref=e776]:
+              - img [ref=e777]
+              - text: Share
+          - button "Open conversation options" [ref=e780] [cursor=pointer]:
+            - img [ref=e781]
+      - main [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e783]:
+            - generic [ref=e785]:
+              - heading "You said:" [level=4] [ref=e827]
+              - generic [ref=e829]:
+                - generic [ref=e834]: Write one sentence about birds.
+                - generic [ref=e835]:
+                  - group "Your message actions":
+                    - button "Copy message":
+                      - generic:
+                        - img
+                    - button "Edit message":
+                      - generic:
+                        - img
+            - generic [ref=e797]:
+              - heading "ChatGPT said:" [level=4] [ref=e798]
+              - generic [ref=e800]:
+                - paragraph [ref=e805]: Birds are feathered animals that lay eggs and many species can fly.
+                - generic [ref=e837]:
+                  - group "Response actions":
+                    - button "Copy response":
+                      - generic:
+                        - img
+                    - button "Good response":
+                      - generic:
+                        - img
+                    - button "Bad response":
+                      - generic:
+                        - img
+                    - button "Share":
+                      - generic:
+                        - img
+                    - generic:
+                      - button "Switch model":
+                        - generic:
+                          - img
+                    - button "More actions":
+                      - img
+            - generic [ref=e840]:
+              - heading "You said:" [level=4] [ref=e841]
+              - generic [ref=e843]:
+                - generic [ref=e848]: Write one sentence about fish.
+                - generic [ref=e849]:
+                  - group "Your message actions":
+                    - button "Copy message":
+                      - generic:
+                        - img
+                    - button "Edit message":
+                      - generic:
+                        - img
+            - generic [ref=e852]:
+              - heading "ChatGPT said:" [level=4] [ref=e853]
+              - generic [ref=e855]:
+                - paragraph [ref=e860]: Fish are aquatic animals that breathe through gills and swim using fins.
+                - generic [ref=e861]:
+                  - group "Response actions":
+                    - button "Copy response":
+                      - generic:
+                        - img
+                    - button "Good response":
+                      - generic:
+                        - img
+                    - button "Bad response":
+                      - generic:
+                        - img
+                    - button "Share":
+                      - generic:
+                        - img
+                    - generic:
+                      - button "Switch model":
+                        - generic:
+                          - img
+                    - button "More actions":
+                      - img
+            - generic [ref=e864]:
+              - heading "You said:" [level=4] [ref=e865]
+              - generic [ref=e867]:
+                - generic [ref=e872]: Write one sentence about lions.
+                - generic [ref=e873]:
+                  - group "Your message actions":
+                    - button "Copy message":
+                      - generic:
+                        - img
+                    - button "Edit message":
+                      - generic:
+                        - img
+            - generic [ref=e876]:
+              - heading "ChatGPT said:" [level=4] [ref=e877]
+              - generic [ref=e879]:
+                - paragraph [ref=e884]: Lions are powerful social big cats that live in prides and are known for their strength and roar.
+                - generic [ref=e885]:
+                  - group "Response actions":
+                    - button "Copy response":
+                      - generic:
+                        - img
+                    - button "Good response":
+                      - generic:
+                        - img
+                    - button "Bad response":
+                      - generic:
+                        - img
+                    - button "Share":
+                      - generic:
+                        - img
+                    - generic:
+                      - button "Switch model":
+                        - generic:
+                          - img
+                    - button "More actions":
+                      - img
+          - generic [ref=e97]:
+            - generic:
+              - generic:
+                - button:
+                  - img
+            - generic [ref=e102]:
+              - generic [ref=e106]:
+                - button "Add files and more" [ref=e109] [cursor=pointer]:
+                  - img
+                - textbox "Chat with ChatGPT" [active] [ref=e643]:
+                  - paragraph [ref=e886]: Ask anything
+                - generic [ref=e116]:
+                  - button "Thinking, click to remove" [ref=e117] [cursor=pointer]:
+                    - img
+                  - button "Thinking" [ref=e118] [cursor=pointer]:
+                    - generic:
+                      - img
+                    - generic [ref=e119]: Thinking
+                    - img
+                - generic [ref=e121]:
+                  - button "Start dictation" [ref=e645] [cursor=pointer]:
+                    - img
+                  - button "Start Voice" [ref=e889] [cursor=pointer]:
+                    - img [ref=e890]
+              - button [ref=e126]
+              - button [ref=e127]
+            - generic [ref=e813]: ChatGPT can make mistakes. Check important info.
+  - alert [ref=e128]
+  - status [ref=e129]
+  - region "ChatGPT Queue" [ref=e720]:
+    - generic [ref=e721]:
+      - heading "ChatGPT Queue" [level=1] [ref=e722]: ChatGPT Queue
+      - generic [ref=e724]:
+        - button "Settings" [ref=e725] [cursor=pointer]: ⚙
+        - button "Collapse" [ref=e726] [cursor=pointer]: —
+    - generic [ref=e727]:
+      - textbox "Type a prompt… (Ctrl+Enter to add)" [ref=e728]:
+        - /placeholder: Type a prompt…  (Ctrl+Enter to add)
+      - generic [ref=e729]:
+        - button "Add to queue" [disabled] [ref=e730] [cursor=pointer]
+        - button "Pause" [ref=e814] [cursor=pointer]
+      - list [ref=e733]:
+        - listitem [ref=e734]:
+          - generic [ref=e735]: Write one sentence about cats.
+          - button "Remove" [ref=e737] [cursor=pointer]: ×
+        - listitem [ref=e738]:
+          - generic [ref=e739]: Write one sentence about dogs.
+          - button "Remove" [ref=e741] [cursor=pointer]: ×
+        - listitem [ref=e742]:
+          - generic [ref=e743]: Write one sentence about birds.
+          - button "Remove" [ref=e892] [cursor=pointer]: ×
+        - listitem [ref=e746]:
+          - generic [ref=e747]: Write one sentence about fish.
+          - button "Remove" [ref=e893] [cursor=pointer]: ×
+        - listitem [ref=e750]:
+          - generic [ref=e751]: Write one sentence about lions.
+          - button "Remove" [ref=e894] [cursor=pointer]: ×
+    - generic [ref=e755]: 5 sent · 0 pending · 0 failed

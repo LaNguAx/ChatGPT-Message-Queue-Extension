@@ -1,0 +1,565 @@
+- generic [ref=e1]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e7]:
+    - generic [ref=e9]:
+      - generic:
+        - generic:
+          - generic:
+            - button "Open sidebar":
+              - img
+        - generic:
+          - generic:
+            - link "New chat":
+              - /url: /
+              - generic:
+                - img
+              - generic: New chat
+          - generic:
+            - button "Search chats":
+              - generic:
+                - img
+              - generic: Search chats
+          - generic:
+            - button "Recents":
+              - generic:
+                - img
+              - generic: Recents
+        - generic:
+          - generic:
+            - button "Open profile menu":
+              - generic:
+                - generic:
+                  - img "Profile image"
+      - generic [ref=e10]:
+        - heading "Chat history" [level=2] [ref=e11]
+        - navigation "Chat history" [ref=e12]:
+          - generic [ref=e15]:
+            - link "Home" [ref=e16] [cursor=pointer]:
+              - /url: /
+              - img [ref=e17]
+            - button "Close sidebar" [expanded] [ref=e20]:
+              - img [ref=e21]
+          - list [ref=e24]:
+            - listitem [ref=e25]:
+              - link "New chat Control Shift O" [ref=e132] [cursor=pointer]:
+                - /url: /
+                - generic [ref=e27]:
+                  - img [ref=e134]
+                  - generic [ref=e137]: New chat
+                - generic [ref=e138]:
+                  - generic "Control" [ref=e139]:
+                    - generic [ref=e140]: Ctrl
+                    - text: +
+                  - generic "Shift" [ref=e141]:
+                    - generic [ref=e142]: Shift
+                    - text: +
+                  - generic [ref=e144]: O
+            - listitem [ref=e32]:
+              - button "Search chats Control K" [ref=e145] [cursor=pointer]:
+                - generic [ref=e34]:
+                  - img [ref=e147]
+                  - generic [ref=e150]: Search chats
+                - generic [ref=e151]:
+                  - generic "Control" [ref=e152]:
+                    - generic [ref=e153]: Ctrl
+                    - text: +
+                  - generic [ref=e155]: K
+          - link "Codex" [ref=e39] [cursor=pointer]:
+            - /url: /codex/cloud
+            - generic [ref=e40]:
+              - img [ref=e42]
+              - generic [ref=e45]: Codex
+            - img [ref=e47]
+          - generic [ref=e50] [cursor=pointer]:
+            - img [ref=e52]
+            - generic [ref=e55]: More
+          - generic [ref=e156]:
+            - button "GPTs" [expanded] [ref=e158] [cursor=pointer]:
+              - heading "GPTs" [level=2] [ref=e159]
+            - list [ref=e160]:
+              - listitem [ref=e161]:
+                - link "Code Copilot" [ref=e162] [cursor=pointer]:
+                  - /url: /g/g-2DQzU5UZl-code-copilot
+                  - generic [ref=e167]: Code Copilot
+                  - button [ref=e169]:
+                    - img [ref=e171]
+            - link "Explore GPTs" [ref=e173] [cursor=pointer]:
+              - /url: /gpts
+              - img [ref=e175]
+              - generic [ref=e178]: Explore GPTs
+          - generic [ref=e179]:
+            - button "Projects" [expanded] [ref=e181] [cursor=pointer]:
+              - heading "Projects" [level=2] [ref=e182]
+            - list [ref=e183]:
+              - listitem [ref=e184]:
+                - button "New project" [ref=e185] [cursor=pointer]:
+                  - img [ref=e187]
+                  - generic [ref=e190]: New project
+              - listitem [ref=e191]:
+                - link "Show chats Bar Open project options for Bar" [ref=e192] [cursor=pointer]:
+                  - /url: /g/g-p-687d2c13b2f48191abf01ad68f545162-bar/project
+                  - generic [ref=e193]:
+                    - button "Show chats" [ref=e195]:
+                      - generic [ref=e196]:
+                        - img [ref=e200]
+                        - img [ref=e210]
+                    - generic [ref=e213]: Bar
+                  - button "Open project options for Bar" [ref=e215]:
+                    - img [ref=e217]
+              - listitem [ref=e219]:
+                - link "Show chats Taliya Open project options for Taliya" [ref=e220] [cursor=pointer]:
+                  - /url: /g/g-p-687d330172bc81919ea6bf4e6aa1ef45-taliya/project
+                  - generic [ref=e221]:
+                    - button "Show chats" [ref=e223]:
+                      - generic [ref=e224]:
+                        - img [ref=e228]
+                        - img [ref=e238]
+                    - generic [ref=e241]: Taliya
+                  - button "Open project options for Taliya" [ref=e243]:
+                    - img [ref=e245]
+              - listitem [ref=e247]:
+                - link "Show chats Voice Agent Open project options for Voice Agent" [ref=e248] [cursor=pointer]:
+                  - /url: /g/g-p-69de1dc257588191a763611f2ee35205-voice-agent/project
+                  - generic [ref=e249]:
+                    - button "Show chats" [ref=e251]:
+                      - generic [ref=e252]:
+                        - img [ref=e256]
+                        - img [ref=e266]
+                    - generic [ref=e269]: Voice Agent
+                  - button "Open project options for Voice Agent" [ref=e271]:
+                    - img [ref=e273]
+              - listitem [ref=e275]:
+                - link "Show chats WORK Open project options for WORK" [ref=e276] [cursor=pointer]:
+                  - /url: /g/g-p-686cb86d5adc8191bab6a9300fb347ad-work/project
+                  - generic [ref=e277]:
+                    - button "Show chats" [ref=e279]:
+                      - generic [ref=e280]:
+                        - img [ref=e284]
+                        - img [ref=e294]
+                    - generic [ref=e297]: WORK
+                  - button "Open project options for WORK" [ref=e299]:
+                    - img [ref=e301]
+              - listitem [ref=e303]:
+                - link "Show chats Gaya Open project options for Gaya" [ref=e304] [cursor=pointer]:
+                  - /url: /g/g-p-68c305f963d88191b00a43e70c41868e-gaya/project
+                  - generic [ref=e305]:
+                    - button "Show chats" [ref=e307]:
+                      - generic [ref=e308]:
+                        - img [ref=e312]
+                        - img [ref=e322]
+                    - generic [ref=e325]: Gaya
+                  - button "Open project options for Gaya" [ref=e327]:
+                    - img [ref=e329]
+              - listitem [ref=e331]:
+                - generic [ref=e332] [cursor=pointer]:
+                  - img [ref=e334]
+                  - generic [ref=e337]: More
+          - generic [ref=e338]:
+            - button "Recents" [expanded] [ref=e340] [cursor=pointer]:
+              - heading "Recents" [level=2] [ref=e341]
+            - list [ref=e343]:
+              - listitem [ref=e708]:
+                - link "Red response request" [ref=e780] [cursor=pointer]:
+                  - /url: /c/69ea2672-cfa4-83eb-8e1e-eccdd9ba7968
+                  - generic [ref=e711]: Red response request
+                  - button "Open conversation options for Red response request" [ref=e781]:
+                    - img [ref=e716]
+              - listitem [ref=e344]:
+                - link "Alpha request" [ref=e345] [cursor=pointer]:
+                  - /url: /c/69ea25d2-e798-83eb-90c3-a0b596dfffce
+                  - generic [ref=e347]: Alpha request
+                  - button "Open conversation options for Alpha request" [ref=e350]:
+                    - img [ref=e352]
+              - listitem [ref=e354]:
+                - link "One response" [ref=e355] [cursor=pointer]:
+                  - /url: /c/69ea24db-75dc-83eb-a13e-a5d31896d007
+                  - generic [ref=e357]: One response
+                  - button "Open conversation options for One response" [ref=e360]:
+                    - img [ref=e362]
+              - listitem [ref=e364]:
+                - link "הכנה לראיון עבודה Backend" [ref=e365] [cursor=pointer]:
+                  - /url: /c/69e9eebf-0520-83eb-a5a7-769d1ca1360f
+                  - generic [ref=e367]: הכנה לראיון עבודה Backend
+                  - button "Open conversation options for הכנה לראיון עבודה Backend" [ref=e370]:
+                    - img [ref=e372]
+              - listitem [ref=e374]:
+                - link "שאלות למשרת Backend" [ref=e375] [cursor=pointer]:
+                  - /url: /c/69e9eaa0-476c-83eb-9a4e-ae01613832a1
+                  - generic [ref=e377]: שאלות למשרת Backend
+                  - button "Open conversation options for שאלות למשרת Backend" [ref=e380]:
+                    - img [ref=e382]
+              - listitem [ref=e384]:
+                - link "הכנה לראיון עבודה Backend" [ref=e385] [cursor=pointer]:
+                  - /url: /c/69e9ee97-2814-83eb-bf9c-379fd8a569b6
+                  - generic [ref=e387]: הכנה לראיון עבודה Backend
+                  - button "Open conversation options for הכנה לראיון עבודה Backend" [ref=e390]:
+                    - img [ref=e392]
+              - listitem [ref=e394]:
+                - link "הכנה לראיון עבודה Backend" [ref=e395] [cursor=pointer]:
+                  - /url: /c/69e9ee80-19d4-83eb-8467-8cdb4357df55
+                  - generic [ref=e397]: הכנה לראיון עבודה Backend
+                  - button "Open conversation options for הכנה לראיון עבודה Backend" [ref=e400]:
+                    - img [ref=e402]
+              - listitem [ref=e404]:
+                - link "הכנה לראיון Backend Microservices, unread" [ref=e405] [cursor=pointer]:
+                  - /url: /c/69e9ee77-2514-83eb-ac99-e678b3f88963
+                  - generic "הכנה לראיון Backend Microservices" [ref=e407]
+                  - button "Open conversation options for הכנה לראיון Backend Microservices" [ref=e411]:
+                    - img [ref=e413]
+              - listitem [ref=e417]:
+                - link "הכנה לראיון ארכיטקטורת מיקרו-שירותים" [ref=e418] [cursor=pointer]:
+                  - /url: /c/69e9ed67-e784-83eb-b821-0e4a29d5cd8a
+                  - generic "הכנה לראיון ארכיטקטורת מיקרו-שירותים" [ref=e420]
+                  - button "Open conversation options for הכנה לראיון ארכיטקטורת מיקרו-שירותים" [ref=e423]:
+                    - img [ref=e425]
+              - listitem [ref=e427]:
+                - link "HR Call for Backend Role" [ref=e428] [cursor=pointer]:
+                  - /url: /c/69e67140-a564-8384-ae4b-daeab2cf0a4f
+                  - generic [ref=e430]: HR Call for Backend Role
+                  - button "Open conversation options for HR Call for Backend Role" [ref=e433]:
+                    - img [ref=e435]
+              - listitem [ref=e437]:
+                - link "מיקרוסרביסים למועמדות עבודה" [ref=e438] [cursor=pointer]:
+                  - /url: /c/69e9ea00-437c-83eb-9e3f-1aea4a98018c
+                  - generic [ref=e440]: מיקרוסרביסים למועמדות עבודה
+                  - button "Open conversation options for מיקרוסרביסים למועמדות עבודה" [ref=e443]:
+                    - img [ref=e445]
+              - listitem [ref=e447]:
+                - link "Spring Cloud Gateway vs Kubernetes" [ref=e448] [cursor=pointer]:
+                  - /url: /c/69e9dd3a-abbc-83eb-bb49-5a2b05a81790
+                  - generic "Spring Cloud Gateway vs Kubernetes" [ref=e450]
+                  - button "Open conversation options for Spring Cloud Gateway vs Kubernetes" [ref=e453]:
+                    - img [ref=e455]
+              - listitem [ref=e457]:
+                - link "Java Main Thread Blocking" [ref=e458] [cursor=pointer]:
+                  - /url: /c/69e93dde-2070-83eb-ab82-cf77b52e9b71
+                  - generic [ref=e460]: Java Main Thread Blocking
+                  - button "Open conversation options for Java Main Thread Blocking" [ref=e463]:
+                    - img [ref=e465]
+              - listitem [ref=e467]:
+                - link "הוספת מים לתינוק" [ref=e468] [cursor=pointer]:
+                  - /url: /c/69e8d55a-7124-83eb-a46b-592bfc4b80e8
+                  - generic [ref=e470]: הוספת מים לתינוק
+                  - button "Open conversation options for הוספת מים לתינוק" [ref=e473]:
+                    - img [ref=e475]
+              - listitem [ref=e477]:
+                - link "דג עם קשקשים וסנפירים" [ref=e478] [cursor=pointer]:
+                  - /url: /c/69e886ae-eb94-83eb-b551-eed39fc68d1c
+                  - generic [ref=e480]: דג עם קשקשים וסנפירים
+                  - button "Open conversation options for דג עם קשקשים וסנפירים" [ref=e483]:
+                    - img [ref=e485]
+              - listitem [ref=e487]:
+                - link "Roblox player base stats" [ref=e488] [cursor=pointer]:
+                  - /url: /c/69e80637-3c6c-8384-ab06-edbdc6950c5d
+                  - generic [ref=e490]: Roblox player base stats
+                  - button "Open conversation options for Roblox player base stats" [ref=e493]:
+                    - img [ref=e495]
+              - listitem [ref=e497]:
+                - link "הרגשת צלילים דרך הרגליים" [ref=e498] [cursor=pointer]:
+                  - /url: /c/69e7f3c7-b054-838b-a750-c1f064bf92a9
+                  - generic [ref=e500]: הרגשת צלילים דרך הרגליים
+                  - button "Open conversation options for הרגשת צלילים דרך הרגליים" [ref=e503]:
+                    - img [ref=e505]
+              - listitem [ref=e507]:
+                - link "Monolith to Microservices Path" [ref=e508] [cursor=pointer]:
+                  - /url: /c/69e7e6b0-66bc-8396-bd75-77c1c78f33e7
+                  - generic [ref=e510]: Monolith to Microservices Path
+                  - button "Open conversation options for Monolith to Microservices Path" [ref=e513]:
+                    - img [ref=e515]
+              - listitem [ref=e517]:
+                - link "Microservices Architecture Overview" [ref=e518] [cursor=pointer]:
+                  - /url: /c/69e7d73e-ea98-838d-9221-e965fc322a76
+                  - generic "Microservices Architecture Overview" [ref=e520]
+                  - button "Open conversation options for Microservices Architecture Overview" [ref=e523]:
+                    - img [ref=e525]
+              - listitem [ref=e527]:
+                - link "API Gateways in Microservices" [ref=e528] [cursor=pointer]:
+                  - /url: /c/69e738cd-acc4-8394-bfaf-ebc23e09591f
+                  - generic [ref=e530]: API Gateways in Microservices
+                  - button "Open conversation options for API Gateways in Microservices" [ref=e533]:
+                    - img [ref=e535]
+              - listitem [ref=e537]:
+                - link "Spring Boot Run Guide" [ref=e538] [cursor=pointer]:
+                  - /url: /c/69e777b7-94d0-8395-a0d6-36cc751a5adb
+                  - generic [ref=e540]: Spring Boot Run Guide
+                  - button "Open conversation options for Spring Boot Run Guide" [ref=e543]:
+                    - img [ref=e545]
+              - listitem [ref=e547]:
+                - link "WebSocket Connection Messages" [ref=e548] [cursor=pointer]:
+                  - /url: /c/69e747fc-fcc4-8396-b870-a68248a606fe
+                  - generic [ref=e550]: WebSocket Connection Messages
+                  - button "Open conversation options for WebSocket Connection Messages" [ref=e553]:
+                    - img [ref=e555]
+              - listitem [ref=e557]:
+                - link "IntelliJ JDK Setup" [ref=e558] [cursor=pointer]:
+                  - /url: /c/69e68d84-8d10-838a-b502-261daa4b2dd8
+                  - generic [ref=e560]: IntelliJ JDK Setup
+                  - button "Open conversation options for IntelliJ JDK Setup" [ref=e563]:
+                    - img [ref=e565]
+              - listitem [ref=e567]:
+                - link "כאב בטן וגרון" [ref=e568] [cursor=pointer]:
+                  - /url: /c/69e67fcf-2c98-8395-b23b-e993c3e96a28
+                  - generic [ref=e570]: כאב בטן וגרון
+                  - button "Open conversation options for כאב בטן וגרון" [ref=e573]:
+                    - img [ref=e575]
+              - listitem [ref=e577]:
+                - link "הגדרת MVP לשירות סטרימינג" [ref=e578] [cursor=pointer]:
+                  - /url: /c/69dbd64b-4898-8392-bddc-a5dd9a54669e
+                  - generic [ref=e580]: הגדרת MVP לשירות סטרימינג
+                  - button "Open conversation options for הגדרת MVP לשירות סטרימינג" [ref=e583]:
+                    - img [ref=e585]
+              - listitem [ref=e587]:
+                - link "LinkedIn History Viewing Guide" [ref=e588] [cursor=pointer]:
+                  - /url: /c/69e64886-c3c0-83eb-afe3-f61894bb7a84
+                  - generic [ref=e590]: LinkedIn History Viewing Guide
+                  - button "Open conversation options for LinkedIn History Viewing Guide" [ref=e593]:
+                    - img [ref=e595]
+              - listitem [ref=e597]:
+                - link "Rotate React Leaflet Marker" [ref=e598] [cursor=pointer]:
+                  - /url: /c/69e4d203-595c-83eb-8c63-3d72aa47da6a
+                  - generic [ref=e600]: Rotate React Leaflet Marker
+                  - button "Open conversation options for Rotate React Leaflet Marker" [ref=e603]:
+                    - img [ref=e605]
+              - listitem [ref=e607]:
+                - link "Double Press Google Wallet" [ref=e608] [cursor=pointer]:
+                  - /url: /c/69e49399-34f4-83eb-a5e8-856efa9145ab
+                  - generic [ref=e610]: Double Press Google Wallet
+                  - button "Open conversation options for Double Press Google Wallet" [ref=e613]:
+                    - img [ref=e615]
+          - button "Itay itay, open profile menu" [ref=e59] [cursor=pointer]:
+            - img "Profile image" [ref=e627]
+            - generic [ref=e62]:
+              - generic [ref=e64]: Itay itay
+              - generic [ref=e67]: Plus
+    - generic [ref=e69]:
+      - banner:
+        - generic [ref=e630]:
+          - button "Try Codex" [ref=e631] [cursor=pointer]:
+            - generic [ref=e632]:
+              - img [ref=e634]
+              - generic [ref=e636]: Try Codex
+          - button "Dismiss upgrade reminder" [ref=e637] [cursor=pointer]:
+            - img [ref=e638]
+        - button "Model selector" [ref=e71] [cursor=pointer]:
+          - generic [ref=e72]: ChatGPT
+          - img [ref=e73]
+        - generic [ref=e77]:
+          - button "Share" [ref=e718] [cursor=pointer]:
+            - generic [ref=e719]:
+              - img [ref=e720]
+              - text: Share
+          - button "Open conversation options" [ref=e723] [cursor=pointer]:
+            - img [ref=e724]
+      - main [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e726]:
+            - generic [ref=e728]:
+              - heading "You said:" [level=4] [ref=e782]
+              - generic [ref=e784]:
+                - generic [ref=e789]: Reply with the single word "red".
+                - generic [ref=e790]:
+                  - group "Your message actions":
+                    - button "Copy message":
+                      - generic:
+                        - img
+                    - button "Edit message":
+                      - generic:
+                        - img
+            - generic [ref=e740]:
+              - heading "ChatGPT said:" [level=4] [ref=e792]
+              - generic [ref=e794]:
+                - paragraph [ref=e799]: red
+                - generic [ref=e800]:
+                  - group "Response actions":
+                    - button "Copy response":
+                      - generic:
+                        - img
+                    - button "Good response":
+                      - generic:
+                        - img
+                    - button "Bad response":
+                      - generic:
+                        - img
+                    - button "Share":
+                      - generic:
+                        - img
+                    - generic:
+                      - button "Switch model":
+                        - generic:
+                          - img
+                    - button "More actions":
+                      - img
+            - generic [ref=e803]:
+              - heading "You said:" [level=4] [ref=e804]
+              - generic [ref=e806]:
+                - generic [ref=e811]: Reply with the single word "green".
+                - generic [ref=e812]:
+                  - group "Your message actions":
+                    - button "Copy message":
+                      - generic:
+                        - img
+                    - button "Edit message":
+                      - generic:
+                        - img
+            - generic [ref=e815]:
+              - heading "ChatGPT said:" [level=4] [ref=e816]
+              - generic [ref=e818]:
+                - generic [ref=e819]:
+                  - button "Thought for a second" [disabled] [ref=e821]
+                  - paragraph [ref=e825]: green
+                - generic [ref=e826]:
+                  - group "Response actions":
+                    - button "Copy response":
+                      - generic:
+                        - img
+                    - button "Good response":
+                      - generic:
+                        - img
+                    - button "Bad response":
+                      - generic:
+                        - img
+                    - button "Share":
+                      - generic:
+                        - img
+                    - generic:
+                      - button "Switch model":
+                        - generic:
+                          - img
+                    - button "More actions":
+                      - img
+            - generic [ref=e829]:
+              - heading "You said:" [level=4] [ref=e830]
+              - generic [ref=e832]:
+                - generic [ref=e837]: Reply with the single word "blue".
+                - generic [ref=e838]:
+                  - group "Your message actions":
+                    - button "Copy message":
+                      - generic:
+                        - img
+                    - button "Edit message":
+                      - generic:
+                        - img
+            - generic [ref=e841]:
+              - heading "ChatGPT said:" [level=4] [ref=e842]
+              - generic [ref=e844]:
+                - paragraph [ref=e849]: blue
+                - generic [ref=e850]:
+                  - group "Response actions":
+                    - button "Copy response":
+                      - generic:
+                        - img
+                    - button "Good response":
+                      - generic:
+                        - img
+                    - button "Bad response":
+                      - generic:
+                        - img
+                    - button "Share":
+                      - generic:
+                        - img
+                    - generic:
+                      - button "Switch model":
+                        - generic:
+                          - img
+                    - button "More actions":
+                      - img
+            - generic [ref=e853]:
+              - heading "You said:" [level=4] [ref=e854]
+              - generic [ref=e856]:
+                - generic [ref=e861]: Reply with the single word "yellow".
+                - generic [ref=e862]:
+                  - group "Your message actions":
+                    - button "Copy message":
+                      - generic:
+                        - img
+                    - button "Edit message":
+                      - generic:
+                        - img
+            - generic [ref=e865]:
+              - heading "ChatGPT said:" [level=4] [ref=e866]
+              - generic [ref=e868]:
+                - paragraph [ref=e873]: yellow
+                - generic [ref=e874]:
+                  - group "Response actions":
+                    - button "Copy response":
+                      - generic:
+                        - img
+                    - button "Good response":
+                      - generic:
+                        - img
+                    - button "Bad response":
+                      - generic:
+                        - img
+                    - button "Share":
+                      - generic:
+                        - img
+                    - generic:
+                      - button "Switch model":
+                        - generic:
+                          - img
+                    - button "More actions":
+                      - img
+          - generic [ref=e99]:
+            - generic:
+              - generic:
+                - button:
+                  - img
+            - generic [ref=e104]:
+              - generic [ref=e108]:
+                - button "Add files and more" [ref=e111] [cursor=pointer]:
+                  - img
+                - textbox "Chat with ChatGPT" [active] [ref=e640]:
+                  - paragraph [ref=e875]: Ask anything
+                - generic [ref=e118]:
+                  - button "Thinking, click to remove" [ref=e119] [cursor=pointer]:
+                    - img
+                  - button "Thinking" [ref=e120] [cursor=pointer]:
+                    - generic:
+                      - img
+                    - generic [ref=e121]: Thinking
+                    - img
+                - generic [ref=e123]:
+                  - button "Start dictation" [ref=e642] [cursor=pointer]:
+                    - img
+                  - button "Start Voice" [ref=e878] [cursor=pointer]:
+                    - img [ref=e879]
+              - button [ref=e128]
+              - button [ref=e129]
+            - generic [ref=e756]: ChatGPT can make mistakes. Check important info.
+  - alert [ref=e130]
+  - status [ref=e131]
+  - region "ChatGPT Queue" [ref=e676]:
+    - generic [ref=e677]:
+      - heading "ChatGPT Queue" [level=1] [ref=e678]: ChatGPT Queue
+      - generic [ref=e680]:
+        - button "Settings" [ref=e681] [cursor=pointer]: ⚙
+        - button "Collapse" [ref=e682] [cursor=pointer]: —
+    - generic [ref=e683]:
+      - textbox "Type a prompt… (Ctrl+Enter to add)" [ref=e684]:
+        - /placeholder: Type a prompt…  (Ctrl+Enter to add)
+      - generic [ref=e685]:
+        - button "Add to queue" [disabled] [ref=e686] [cursor=pointer]
+        - button "Pause" [ref=e757] [cursor=pointer]
+      - list [ref=e689]:
+        - listitem [ref=e758]:
+          - generic [ref=e759]: Reply with the single word "red".
+          - button "Remove" [ref=e882] [cursor=pointer]: ×
+        - listitem [ref=e760]:
+          - generic [ref=e761]: Reply with the single word "green".
+          - button "Remove" [ref=e883] [cursor=pointer]: ×
+        - listitem [ref=e764]:
+          - generic [ref=e765]: Reply with the single word "blue".
+          - button "Remove" [ref=e884] [cursor=pointer]: ×
+        - listitem [ref=e768]:
+          - generic [ref=e769]: Reply with the single word "yellow".
+          - button "Remove" [ref=e885] [cursor=pointer]: ×
+      - generic [ref=e772]:
+        - generic [ref=e773]:
+          - generic [ref=e774]: "Delay between messages: 0.0s"
+          - 'slider "Delay between messages: 0.0s" [ref=e775]': "0"
+        - generic [ref=e776]:
+          - button "Clear completed" [ref=e777] [cursor=pointer]
+          - button "Export" [ref=e778] [cursor=pointer]
+          - button "Import" [ref=e779] [cursor=pointer]
+    - generic [ref=e707]: 4 sent · 0 pending · 0 failed

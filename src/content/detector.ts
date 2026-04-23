@@ -29,6 +29,10 @@ export function createDetector(emit: (ev: DetectorEvent) => void, opts: Options 
     }
   };
 
+  // The stale-timer fires if we go too long without seeing any known ChatGPT signal
+  // (composer, send button, or stop button). It is reset ONLY when a signal is present —
+  // so a continuously-mutating page without selectors (e.g. selector regression during
+  // streaming) still triggers the warning.
   const resetStaleTimer = () => {
     if (staleTimer) clearTimeout(staleTimer);
     staleTimer = setTimeout(() => {
@@ -37,6 +41,9 @@ export function createDetector(emit: (ev: DetectorEvent) => void, opts: Options 
       }
     }, selectorStaleMs);
   };
+
+  const sawKnownSignal = (): boolean =>
+    findComposer() != null || findSubmitButton() != null || findStopButton() != null;
 
   const scan = () => {
     if (isAuthWall()) {
@@ -66,7 +73,8 @@ export function createDetector(emit: (ev: DetectorEvent) => void, opts: Options 
       return;
     }
 
-    // Not generating — start / keep the idle-stability timer
+    // Not generating — start / keep the idle-stability timer.
+    // error → idle recovery naturally lands here once the toast disappears.
     if (current !== 'idle' && !idleTimer) {
       idleTimer = setTimeout(() => {
         current = 'idle';
@@ -79,7 +87,7 @@ export function createDetector(emit: (ev: DetectorEvent) => void, opts: Options 
   return {
     start: () => {
       observer = new MutationObserver(() => {
-        resetStaleTimer();
+        if (sawKnownSignal()) resetStaleTimer();
         scan();
       });
       observer.observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });

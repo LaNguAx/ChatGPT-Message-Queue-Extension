@@ -82,4 +82,57 @@ describe('detector', () => {
     expect(events.some((e) => e.type === 'error' && e.code === 'selectors-stale')).toBe(true);
     d.stop();
   });
+
+  it('selectors-stale fires even with mutations if no known signal is present', async () => {
+    set('<div>nothing</div>');
+    const events: DetectorEvent[] = [];
+    const d = createDetector((e) => events.push(e), { idleStabilityMs: 50, selectorStaleMs: 500 });
+    d.start();
+    // Mutate continuously without adding a known signal
+    for (let i = 0; i < 10; i++) {
+      document.body.appendChild(document.createTextNode(`tick-${i}`));
+      await vi.advanceTimersByTimeAsync(50);
+    }
+    // Total elapsed: ~500ms of mutations, no known signal — stale should fire
+    await vi.advanceTimersByTimeAsync(600);
+    expect(events.some((e) => e.type === 'error' && e.code === 'selectors-stale')).toBe(true);
+    d.stop();
+  });
+
+  it('recovers error → idle → generating when toast is dismissed and user resends', async () => {
+    set(ERR_HTML);
+    const events: DetectorEvent[] = [];
+    const d = createDetector((e) => events.push(e), { idleStabilityMs: 50 });
+    d.start();
+    await vi.advanceTimersByTimeAsync(100);
+    // Dismiss toast
+    set(IDLE_HTML);
+    await vi.advanceTimersByTimeAsync(100);
+    // Start new generation
+    set(GEN_HTML);
+    await vi.advanceTimersByTimeAsync(100);
+
+    const seq = events.map((e) => (e.type === 'error' ? `error:${e.code}` : e.type));
+    // Expect: error → idle → generating (in order)
+    const errorIdx = seq.findIndex((s) => s.startsWith('error'));
+    const idleIdx = seq.indexOf('idle', errorIdx);
+    const genIdx = seq.indexOf('generating', idleIdx);
+    expect(errorIdx).toBeGreaterThanOrEqual(0);
+    expect(idleIdx).toBeGreaterThan(errorIdx);
+    expect(genIdx).toBeGreaterThan(idleIdx);
+    d.stop();
+  });
+
+  it('stop() prevents further emissions on subsequent DOM mutations', async () => {
+    set(IDLE_HTML);
+    const events: DetectorEvent[] = [];
+    const d = createDetector((e) => events.push(e), { idleStabilityMs: 50 });
+    d.start();
+    await vi.advanceTimersByTimeAsync(100);
+    d.stop();
+    events.length = 0;
+    set(GEN_HTML);
+    await vi.advanceTimersByTimeAsync(200);
+    expect(events).toHaveLength(0);
+  });
 });

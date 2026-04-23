@@ -4,9 +4,14 @@ import { QueueApi } from '../queue/queue';
 import { detectTheme, onThemeChange } from './theme';
 import panelCss from './panel.css?raw';
 
+export type PanelOptions = {
+  readOnlyReason?: string | null;
+  onTakeOver?: () => void;
+};
+
 export type PanelHandle = { unmount: () => void };
 
-export function mountPanel(queue: QueueApi): PanelHandle {
+export function mountPanel(queue: QueueApi, opts: PanelOptions = {}): PanelHandle {
   const host = document.createElement('div');
   host.id = 'chatgpt-queue-host';
   document.body.appendChild(host);
@@ -23,7 +28,7 @@ export function mountPanel(queue: QueueApi): PanelHandle {
   const offTheme = onThemeChange(setTheme);
 
   const root: Root = createRoot(container);
-  root.render(<Panel queue={queue} />);
+  root.render(<Panel queue={queue} readOnlyReason={opts.readOnlyReason ?? null} onTakeOver={opts.onTakeOver} />);
 
   return {
     unmount: () => {

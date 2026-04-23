@@ -5,13 +5,22 @@ async function readLock(): Promise<TabLock | undefined> {
   return obj[STORAGE_KEY_LOCK] as TabLock | undefined;
 }
 
+// Age of a heartbeat, clamped to [0, +inf) to survive OS clock jumps.
+function ageOf(now: number, heartbeatAt: number): number {
+  return Math.max(0, now - heartbeatAt);
+}
+
+// Optimistic lock acquisition. Returns true if we believe we now own the lock.
+// Because chrome.storage reads and writes are not a single atomic compare-and-swap,
+// two concurrent tabs can both observe "no fresh owner" and both write themselves.
+// Callers MUST subscribe to onLockChange and yield to whichever tabId lands last.
 export async function acquireLock(tabId: string): Promise<boolean> {
   const now = Date.now();
   const existing = await readLock();
-  const fresh = existing && now - existing.heartbeatAt < LOCK_STALE_MS;
-  if (fresh && existing && existing.tabId !== tabId) return false;
-  const lock: TabLock = { tabId, heartbeatAt: now };
-  await chrome.storage.local.set({ [STORAGE_KEY_LOCK]: lock });
+  if (existing && ageOf(now, existing.heartbeatAt) < LOCK_STALE_MS && existing.tabId !== tabId) {
+    return false;
+  }
+  await chrome.storage.local.set({ [STORAGE_KEY_LOCK]: { tabId, heartbeatAt: now } satisfies TabLock });
   return true;
 }
 
@@ -25,7 +34,7 @@ export async function isOwner(tabId: string): Promise<boolean> {
   const existing = await readLock();
   if (!existing) return false;
   if (existing.tabId !== tabId) return false;
-  return Date.now() - existing.heartbeatAt < LOCK_STALE_MS;
+  return ageOf(Date.now(), existing.heartbeatAt) < LOCK_STALE_MS;
 }
 
 export async function releaseLock(tabId: string): Promise<void> {

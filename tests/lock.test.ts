@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { acquireLock, heartbeat, isOwner, releaseLock, onLockChange } from '../src/storage/lock';
-import { STORAGE_KEY_LOCK, LOCK_STALE_MS } from '../src/queue/types';
+import { STORAGE_KEY_LOCK, LOCK_STALE_MS, TabLock } from '../src/queue/types';
 
 describe('lock', () => {
   beforeEach(() => {
@@ -50,5 +50,44 @@ describe('lock', () => {
     await acquireLock('tab-a');
     expect(seen).toEqual(['tab-a']);
     off();
+  });
+
+  it('releaseLock is a no-op when another tab has taken over', async () => {
+    await acquireLock('tab-a');
+    // Simulate takeover: tab-b claims the lock directly (e.g. after staleness)
+    await chrome.storage.local.set({
+      [STORAGE_KEY_LOCK]: { tabId: 'tab-b', heartbeatAt: Date.now() } satisfies TabLock,
+    });
+    await releaseLock('tab-a');
+    expect(await isOwner('tab-b')).toBe(true);
+  });
+
+  it('heartbeat from a non-owner is a no-op', async () => {
+    await acquireLock('tab-a');
+    const before = await chrome.storage.local.get(STORAGE_KEY_LOCK);
+    vi.setSystemTime(1_000_100);
+    await heartbeat('tab-b');
+    const after = await chrome.storage.local.get(STORAGE_KEY_LOCK);
+    expect(after[STORAGE_KEY_LOCK]).toEqual(before[STORAGE_KEY_LOCK]);
+  });
+
+  it('onLockChange ignores writes to other keys', async () => {
+    const seen: unknown[] = [];
+    const off = onLockChange((l) => seen.push(l));
+    await chrome.storage.local.set({ 'chatgpt-queue:v1:state': { irrelevant: true } });
+    expect(seen).toEqual([]);
+    off();
+  });
+
+  it('stale-boundary: exactly LOCK_STALE_MS is already stale (strict <)', async () => {
+    await acquireLock('tab-a');
+    // One ms below the boundary: still fresh.
+    vi.setSystemTime(1_000_000 + LOCK_STALE_MS - 1);
+    expect(await acquireLock('tab-b')).toBe(false);
+    expect(await isOwner('tab-a')).toBe(true);
+    // Exactly at the boundary: now stale.
+    vi.setSystemTime(1_000_000 + LOCK_STALE_MS);
+    expect(await acquireLock('tab-c')).toBe(true);
+    expect(await isOwner('tab-c')).toBe(true);
   });
 });

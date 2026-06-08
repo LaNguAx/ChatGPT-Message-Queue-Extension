@@ -3,6 +3,7 @@ import { QueueApi } from '../queue/queue';
 import { QueueState } from '../queue/types';
 import { PanelList } from './PanelList';
 import { PanelSettings } from './PanelSettings';
+import { BrandMark, MinimizeIcon, PauseIcon, PlayIcon, SettingsIcon } from './icons';
 
 type Props = { queue: QueueApi };
 
@@ -42,46 +43,67 @@ export function Panel({ queue }: Props) {
 
   if (collapsed) {
     return (
-      <button className="collapsed" onClick={() => setCollapsed(false)} aria-label="Open Prompt Queue for ChatGPT">
-        <span className={`dot ${dotClass}`} />
-        <span>
-          {state.running ? '▶' : '⏸'} {pending} queued
+      <button className="pq-pill" onClick={() => setCollapsed(false)} aria-label="Open Prompt Queue for ChatGPT">
+        <span className="pq-pill__mark">
+          <BrandMark size={18} />
         </span>
+        <span className={`pq-status-dot ${dotClass}`} />
+        <span className="pq-pill__label">Queue</span>
+        <span className="pq-pill__count">{pending}</span>
       </button>
     );
   }
 
   return (
-    <div className="panel" role="region" aria-label="Prompt Queue for ChatGPT">
-      <div className="header">
-        <h1>
-          <span className={`dot ${dotClass} header-dot`} />
-          Prompt Queue
-        </h1>
-        <div className="header-actions">
-          <button onClick={() => setShowSettings((s) => !s)} aria-label="Settings">⚙</button>
-          <button onClick={() => setCollapsed(true)} aria-label="Collapse">—</button>
+    <section className="pq-panel" aria-label="Prompt Queue for ChatGPT">
+      <header className="pq-header">
+        <div className="pq-brand">
+          <span className="pq-brand__mark">
+            <BrandMark size={20} />
+          </span>
+          <h1 className="pq-brand__title">Prompt Queue</h1>
+          <span className={`pq-status-dot ${dotClass}`} title={dotClass || 'idle'} />
         </div>
-      </div>
+        <div className="pq-header__actions">
+          <button
+            className="pq-icon-btn"
+            onClick={() => setShowSettings((s) => !s)}
+            aria-label="Settings"
+            aria-pressed={showSettings}
+          >
+            <SettingsIcon />
+          </button>
+          <button className="pq-icon-btn" onClick={() => setCollapsed(true)} aria-label="Collapse">
+            <MinimizeIcon />
+          </button>
+        </div>
+      </header>
 
-      <div className="body">
-        <textarea
-          ref={textareaRef}
-          placeholder="Type a prompt…  (Ctrl+Enter to add)"
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          onKeyDown={onKeyDown}
-        />
-        <div className="add-row">
-          <button onClick={onAdd} disabled={!draft.trim()}>Add to queue</button>
-          <div className="spacer" />
-          {state.running ? (
-            <button onClick={() => queue.pause()}>Pause</button>
-          ) : (
-            <button className="primary" onClick={() => queue.start()} disabled={pending === 0}>
-              Start
+      <div className="pq-body">
+        <div className="pq-compose">
+          <textarea
+            ref={textareaRef}
+            className="pq-textarea"
+            placeholder="Type a prompt…  (Ctrl+Enter to add)"
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={onKeyDown}
+          />
+          <div className="pq-compose__row">
+            <button className="pq-btn" onClick={onAdd} disabled={!draft.trim()}>
+              Add to queue
             </button>
-          )}
+            <span className="pq-spacer" />
+            {state.running ? (
+              <button className="pq-btn" onClick={() => queue.pause()}>
+                <PauseIcon /> Pause
+              </button>
+            ) : (
+              <button className="pq-btn pq-btn--primary" onClick={() => queue.start()} disabled={pending === 0}>
+                <PlayIcon /> Start
+              </button>
+            )}
+          </div>
         </div>
 
         <PanelList state={state} queue={queue} />
@@ -89,9 +111,17 @@ export function Panel({ queue }: Props) {
         {showSettings && <PanelSettings state={state} queue={queue} />}
       </div>
 
-      <div className="footer">
-        <span>{done} sent · {pending} pending · {failed} failed</span>
-      </div>
-    </div>
+      <footer className="pq-footer">
+        <span className={`pq-chip pq-chip--done ${done > 0 ? 'is-active' : ''}`}>
+          <b>{done}</b> sent
+        </span>
+        <span className="pq-chip pq-chip--pending">
+          <b>{pending}</b> pending
+        </span>
+        <span className={`pq-chip pq-chip--failed ${failed > 0 ? 'is-active' : ''}`}>
+          <b>{failed}</b> failed
+        </span>
+      </footer>
+    </section>
   );
 }

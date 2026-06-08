@@ -18,6 +18,13 @@ function StatusIcon({ status }: { status: QueueItemStatus }) {
   return <ClockIcon />;
 }
 
+function statusLabel(status: QueueItemStatus): string {
+  if (status === 'sending') return 'Sending...';
+  if (status === 'done') return 'Sent';
+  if (status === 'failed') return 'Failed - Retry or Skip';
+  return 'Waiting to send';
+}
+
 export function PanelList({ state, queue }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
@@ -28,7 +35,10 @@ export function PanelList({ state, queue }: Props) {
 
   useFlip(listRef, state.items.map((i) => i.id).join('|'));
 
+  const isEditable = (it: QueueItem) => it.status === 'pending' || it.status === 'failed';
+
   const beginEdit = (it: QueueItem) => {
+    if (!isEditable(it)) return; // only un-sent prompts can be edited
     setEditingId(it.id);
     setEditText(it.text);
   };
@@ -73,13 +83,18 @@ export function PanelList({ state, queue }: Props) {
     return (
       <div className="pq-empty">
         <InboxIcon className="pq-empty__icon" />
-        <div className="pq-empty__title">No prompts queued</div>
-        <div className="pq-empty__hint">Type a prompt above and press Add to queue.</div>
+        <div className="pq-empty__title">No prompts queued yet</div>
+        <ol className="pq-empty__steps">
+          <li>Type a prompt, then Add to queue.</li>
+          <li>Queue as many as you like.</li>
+          <li>Press Start - replies send automatically.</li>
+        </ol>
       </div>
     );
   }
 
   return (
+    <>
     <ul className="pq-list" ref={listRef}>
       {state.items.map((it, idx) => {
         const isEditing = editingId === it.id;
@@ -100,31 +115,42 @@ export function PanelList({ state, queue }: Props) {
             key={it.id}
             data-id={it.id}
             className={cls}
-            draggable={!isEditing}
-            onDragStart={(e) => {
-              setDraggingId(it.id);
-              e.dataTransfer.effectAllowed = 'move';
-              e.dataTransfer.setData('text/plain', it.id);
-            }}
             onDragOver={(e) => {
+              if (draggingId == null) return;
               e.preventDefault();
               const r = e.currentTarget.getBoundingClientRect();
               const pos = e.clientY > r.top + r.height / 2 ? 'after' : 'before';
               if (dropTarget?.idx !== idx || dropTarget?.pos !== pos) setDropTarget({ idx, pos });
             }}
             onDrop={() => onDrop(idx)}
-            onDragEnd={() => {
-              setDraggingId(null);
-              setDropTarget(null);
-            }}
           >
-            <span className="pq-item__handle" aria-hidden>
+            <span
+              className="pq-item__handle"
+              title="Drag to reorder"
+              draggable={!isEditing}
+              onDragStart={(e) => {
+                setDraggingId(it.id);
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', it.id);
+                const li = (e.currentTarget as HTMLElement).closest('li.pq-item');
+                if (li instanceof HTMLElement) e.dataTransfer.setDragImage(li, 16, 16);
+              }}
+              onDragEnd={() => {
+                setDraggingId(null);
+                setDropTarget(null);
+              }}
+              aria-hidden
+            >
               <GripIcon />
             </span>
-            <span className="pq-item__status" aria-hidden>
+            <span className="pq-item__status" title={statusLabel(it.status)} aria-label={statusLabel(it.status)}>
               <StatusIcon status={it.status} />
             </span>
-            <div className="pq-item__body" onDoubleClick={() => beginEdit(it)}>
+            <div
+              className={`pq-item__body${isEditable(it) ? ' pq-item__body--editable' : ''}`}
+              onDoubleClick={isEditable(it) ? () => beginEdit(it) : undefined}
+              title={isEditable(it) && !isEditing ? 'Double-click to edit' : undefined}
+            >
               {isEditing ? (
                 <textarea
                   className="pq-item__edit"
@@ -149,10 +175,18 @@ export function PanelList({ state, queue }: Props) {
             <div className="pq-item__actions">
               {it.status === 'failed' && (
                 <>
-                  <button className="pq-btn pq-btn--ghost" onClick={() => queue.retry(it.id)}>
+                  <button
+                    className="pq-btn pq-btn--ghost"
+                    onClick={() => queue.retry(it.id)}
+                    title="Try this prompt again"
+                  >
                     Retry
                   </button>
-                  <button className="pq-btn pq-btn--ghost" onClick={() => queue.skip(it.id)}>
+                  <button
+                    className="pq-btn pq-btn--ghost"
+                    onClick={() => queue.skip(it.id)}
+                    title="Skip this prompt and mark it done"
+                  >
                     Skip
                   </button>
                 </>
@@ -162,6 +196,7 @@ export function PanelList({ state, queue }: Props) {
                   className="pq-icon-btn pq-icon-btn--sm pq-item__remove"
                   onClick={(e) => onRemove(e, it.id)}
                   aria-label="Remove"
+                  title="Remove from queue"
                 >
                   <CloseIcon />
                 </button>
@@ -171,5 +206,9 @@ export function PanelList({ state, queue }: Props) {
         );
       })}
     </ul>
+    {state.items.length >= 2 && (
+      <p className="pq-list-hint">Drag to reorder &middot; double-click to edit</p>
+    )}
+    </>
   );
 }

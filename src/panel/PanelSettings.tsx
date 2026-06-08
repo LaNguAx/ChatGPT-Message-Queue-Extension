@@ -40,17 +40,26 @@ export function PanelSettings({ state, queue }: Props) {
           step={500}
           value={state.delayMs}
           onChange={(e) => queue.setDelay(Number(e.target.value))}
+          title="Delay before the next prompt is sent"
         />
       </div>
       <div className="pq-settings__actions">
-        <button className="pq-btn pq-btn--ghost" onClick={() => queue.clearCompleted()}>
+        <button
+          className="pq-btn pq-btn--ghost"
+          onClick={() => queue.clearCompleted()}
+          title="Remove all sent prompts from the list"
+        >
           Clear completed
         </button>
         <span className="pq-spacer" />
-        <button className="pq-btn pq-btn--ghost" onClick={exportJson}>
+        <button className="pq-btn pq-btn--ghost" onClick={exportJson} title="Download the queue as a JSON file">
           Export
         </button>
-        <button className="pq-btn pq-btn--ghost" onClick={() => fileRef.current?.click()}>
+        <button
+          className="pq-btn pq-btn--ghost"
+          onClick={() => fileRef.current?.click()}
+          title="Load a queue from a JSON file"
+        >
           Import
         </button>
         <input

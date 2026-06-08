@@ -25,10 +25,15 @@ export function PanelSettings({ state, queue }: Props) {
   };
 
   return (
-    <div className="settings">
-      <label className="settings-row">
-        <span>Delay between messages: {(state.delayMs / 1000).toFixed(1)}s</span>
+    <div className="pq-settings">
+      <div className="pq-settings__row">
+        <label className="pq-settings__label" htmlFor="pq-delay">
+          <span>Delay between messages</span>
+          <span className="pq-settings__value">{(state.delayMs / 1000).toFixed(1)}s</span>
+        </label>
         <input
+          id="pq-delay"
+          className="pq-range"
           type="range"
           min={0}
           max={60_000}
@@ -36,11 +41,18 @@ export function PanelSettings({ state, queue }: Props) {
           value={state.delayMs}
           onChange={(e) => queue.setDelay(Number(e.target.value))}
         />
-      </label>
-      <div className="settings-actions">
-        <button onClick={() => queue.clearCompleted()}>Clear completed</button>
-        <button onClick={exportJson}>Export</button>
-        <button onClick={() => fileRef.current?.click()}>Import</button>
+      </div>
+      <div className="pq-settings__actions">
+        <button className="pq-btn pq-btn--ghost" onClick={() => queue.clearCompleted()}>
+          Clear completed
+        </button>
+        <span className="pq-spacer" />
+        <button className="pq-btn pq-btn--ghost" onClick={exportJson}>
+          Export
+        </button>
+        <button className="pq-btn pq-btn--ghost" onClick={() => fileRef.current?.click()}>
+          Import
+        </button>
         <input
           ref={fileRef}
           type="file"

@@ -1,8 +1,10 @@
-# ChatGPT Queue
+# Prompt Queue for ChatGPT
 
 > A Chrome extension that queues prompts for chatgpt.com and auto-sends the next one when the current response finishes. Step away, come back, get answers.
 
 ![MV3](https://img.shields.io/badge/Chrome-MV3-4285F4) ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6) ![React 19](https://img.shields.io/badge/React-19-61DAFB) ![Tests](https://img.shields.io/badge/tests-44%20passing-10a37f) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
+
+> Not affiliated with, endorsed by, or sponsored by OpenAI. "ChatGPT" is a trademark of OpenAI, used here only to describe the website this extension works with.
 
 ---
 
@@ -86,6 +88,8 @@ src/
 │   ├── PanelSettings.tsx — delay slider, export/import, clear completed
 │   ├── theme.ts          — detect + follow ChatGPT's light/dark class
 │   └── panel.css         — all panel styles (injected as raw text into shadow root)
+├── popup/                ← static toolbar popup (no JS, no permissions)
+│   └── index.html        — short "open chatgpt.com to use the queue" card
 └── util/
     ├── uuid.ts           — UUID v4 helper
     └── logger.ts         — namespaced console logger
@@ -152,6 +156,8 @@ npm run dev         # Vite + CRXJS; rebuilds on file change — reload extension
 npm run build       # production build into dist/
 npm test            # Vitest (jsdom environment)
 npm run typecheck   # tsc --noEmit
+npm run icons       # regenerate icon PNGs from branding/icon.svg
+npm run package     # zip dist/ into releases/ for store upload
 ```
 
 After `npm run dev` or `npm run build`, point `chrome://extensions` → "Load unpacked" at the generated `dist/` folder. Reload the extension after each rebuild.
@@ -164,42 +170,64 @@ After `npm run dev` or `npm run build`, point `chrome://extensions` → "Load un
 - **Vitest 3** with jsdom for unit tests
 - **Sessionstorage**-backed per-tab persistence (no `chrome.storage`, no network, no background worker)
 
-### Running the manual E2E runbook
+### Release QA checklist
 
-Unit tests cover the pure logic; live DOM behaviour has to be verified in a real browser. Before releasing:
+Unit tests cover the pure logic; live DOM behaviour has to be verified in a real browser. Before releasing, run `npm run build`, load `dist/` unpacked in `chrome://extensions` (Developer Mode enabled), and log in to chatgpt.com. Then walk through these steps:
 
-1. `npm run build`
-2. Load `dist/` unpacked in `chrome://extensions`.
-3. Walk through the runbook in `docs/superpowers/specs/` — twelve manual steps covering mount, add, auto-send, pause, persistence, error handling, two-tab isolation, theme sync, delay slider, and export/import.
+1. **Panel mounts.** Open https://chatgpt.com — a collapsed pill appears bottom-right. Click it; the panel expands.
+2. **Add messages.** Type three short prompts, pressing "Add to queue" between each. Counter shows pending count.
+3. **Auto-send works.** Press Start. First prompt types into ChatGPT's composer and sends. When ChatGPT finishes, the next prompt fires ~2 seconds later. All three complete without intervention.
+4. **Pause works.** Add 2 more prompts, press Start, then press Pause while ChatGPT is generating. Generation continues; queue does not fire the next. Press Start again — fires on next idle.
+5. **Persistence across refresh.** Add 2 pending prompts (queue paused). Hit F5. After reload, both prompts are still in the panel and the queue is paused.
+6. **Tab close clears queue.** Close the tab and open a new chatgpt.com tab. Queue is empty (sessionStorage cleared on tab close).
+7. **Per-tab isolation.** Open a second ChatGPT tab. Each tab has its own independent queue; no lock banner.
+8. **Theme sync.** Toggle ChatGPT's light/dark setting. Panel follows without a refresh.
+9. **Settings — delay.** Set delay slider to 0. Next message fires immediately. Set to 10s — next message waits ~10s.
+10. **Export/Import.** Export queue — JSON file downloads. Clear queue. Import the file — items reappear.
 
 ### Customising the icon
 
-The extension ships with a single 128 × 128 PNG (Chrome scales it for smaller UI slots). To replace it:
+The extension ships PNG icons at 16, 32, 48, and 128 px, all generated from a single SVG source. To change the icon:
 
-1. Edit `public/icons/icon.svg`.
-2. Re-rasterise to PNG at 128 × 128 with any tool (Figma, Inkscape, online SVG-to-PNG).
-3. Save as `public/icons/icon-128.png`.
+1. Edit `branding/icon.svg` (kept outside `public/` so the source SVG is not shipped in the build).
+2. Run `npm run icons` — this rasterises the SVG into `icon-16.png`, `icon-32.png`, `icon-48.png`, and `icon-128.png` in `public/icons/`.
+3. `npm run build` copies them into `dist/`.
 
-No rebuild needed — the PNG is copied into `dist/` on the next `npm run build`.
+### Packaging for the Chrome Web Store
+
+```bash
+npm run build      # produce dist/
+npm run package    # zip dist/ into releases/prompt-queue-for-chatgpt-<version>.zip
+```
+
+Upload the generated zip in the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole). See [`store/LISTING.md`](store/LISTING.md) for the listing copy and submission checklist, and [`store/ASSETS.md`](store/ASSETS.md) for the screenshot/promo-tile specs and image prompts.
 
 ## Project structure
 
 ```
 .
+├── .github/workflows/        — CI (typecheck, test, build)
 ├── manifest.config.ts        — CRXJS defineManifest() call
 ├── vite.config.ts            — Vite + React + CRXJS
 ├── vitest.config.ts          — Vitest + jsdom
 ├── tsconfig.json             — strict + noUncheckedIndexedAccess
 ├── package.json
-├── public/icons/             — extension icons
-│   ├── icon.svg              — SVG source
-│   └── icon-128.png          — rasterised icon referenced by manifest
-├── src/                      — see "How it works" above
+├── branding/                 — brand source (not bundled into the build)
+│   └── icon.svg              — SVG source for the icons
+├── scripts/                  — build-time tooling
+│   ├── gen-icons.mjs         — rasterise branding/icon.svg → PNG sizes
+│   └── package.mjs           — zip dist/ for store upload
+├── public/icons/             — rasterised icons referenced by manifest
+│   └── icon-{16,32,48,128}.png
+├── src/                      — see "How it works" above (includes src/popup/ toolbar popup)
 ├── tests/                    — Vitest unit tests
-├── docs/superpowers/         — design spec + implementation plan (for contributors)
+├── store/                    — Chrome Web Store listing + asset specs (not bundled)
+│   ├── LISTING.md            — listing copy + submission checklist
+│   └── ASSETS.md             — screenshot / promo-tile image prompts
 ├── CLAUDE.md                 — guidance for Claude Code agents
 ├── AGENTS.md                 — guidance for other coding agents
 ├── LICENSE                   — MIT
+├── PRIVACY.md                — privacy policy (no data collected)
 └── README.md                 — this file
 ```
 
@@ -210,7 +238,7 @@ Issues and PRs welcome. Before sending a PR:
 1. `npm run typecheck` — exit 0
 2. `npm test` — all tests pass
 3. `npm run build` — produces a clean `dist/`
-4. If you touched selectors, the detector, or the sender, walk the live-DOM runbook.
+4. If you touched selectors, the detector, or the sender, walk the [Release QA checklist](#release-qa-checklist).
 
 Follow the existing file boundaries — each module in `src/` has one clear responsibility. Adding features usually means adding a file, not expanding an existing one.
 
@@ -222,6 +250,8 @@ See `CLAUDE.md` and `AGENTS.md` for conventions AI assistants should follow in t
 - **No `chrome.storage` access.** Queue state lives in `sessionStorage`, which browsers isolate per tab and never sync to the cloud.
 - **Minimum permissions.** `host_permissions` is scoped to `https://chatgpt.com/*`. No `tabs`, `scripting`, `activeTab`, `cookies`, or similar.
 - **No remote code.** Everything loads from the packaged `dist/` bundle.
+
+Full policy: [PRIVACY.md](PRIVACY.md).
 
 ## License
 

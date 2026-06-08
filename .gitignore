@@ -1,5 +1,6 @@
 node_modules/
 dist/
+releases/
 .DS_Store
 *.log
 .vite/
@@ -19,5 +20,5 @@ Thumbs.db
 /*.png
 !public/**/*.png
 
-# User-specific CC plugin state
-.claude/settings.local.json
+# User-specific Claude Code config
+.claude/

@@ -1,11 +1,32 @@
 {
-  "name": "chatgpt-queue",
-  "version": "0.1.0",
-  "private": true,
+  "name": "prompt-queue-for-chatgpt",
+  "version": "1.0.0",
+  "private": false,
   "type": "module",
+  "description": "Chrome MV3 extension that queues prompts for ChatGPT and auto-sends the next one when the current response finishes. Not affiliated with OpenAI.",
+  "author": "LaNguAx",
+  "license": "MIT",
+  "homepage": "https://github.com/LaNguAx/ChatGPT-Message-Queue-Extension",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaNguAx/ChatGPT-Message-Queue-Extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LaNguAx/ChatGPT-Message-Queue-Extension/issues"
+  },
+  "keywords": [
+    "chrome-extension",
+    "manifest-v3",
+    "chatgpt",
+    "prompt-queue",
+    "automation",
+    "productivity"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "icons": "node scripts/gen-icons.mjs",
+    "package": "node scripts/package.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
@@ -20,7 +41,9 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.0",
+    "archiver": "^7.0.1",
     "jsdom": "^25.0.0",
+    "sharp": "^0.34.0",
     "typescript": "^5.6.0",
     "vite": "^7.0.0",
     "vitest": "^3.0.0"

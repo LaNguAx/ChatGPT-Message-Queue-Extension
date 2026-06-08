@@ -1,14 +1,20 @@
 import { defineManifest } from '@crxjs/vite-plugin';
 import pkg from './package.json';
 
+const icons = {
+  16: 'icons/icon-16.png',
+  32: 'icons/icon-32.png',
+  48: 'icons/icon-48.png',
+  128: 'icons/icon-128.png',
+};
+
 export default defineManifest({
   manifest_version: 3,
-  name: 'ChatGPT Queue',
-  description: 'Queue prompts for ChatGPT; auto-send the next one when the current response finishes.',
+  name: 'Prompt Queue for ChatGPT',
+  description: 'Queue prompts for ChatGPT and auto-send the next one when the current response finishes. Not affiliated with OpenAI.',
   version: pkg.version,
-  icons: {
-    128: 'public/icons/icon-128.png',
-  },
+  homepage_url: pkg.homepage,
+  icons,
   host_permissions: ['https://chatgpt.com/*'],
   content_scripts: [
     {
@@ -18,7 +24,8 @@ export default defineManifest({
     },
   ],
   action: {
-    default_title: 'ChatGPT Queue',
-    default_icon: { 128: 'public/icons/icon-128.png' },
+    default_title: 'Prompt Queue for ChatGPT',
+    default_icon: icons,
+    default_popup: 'src/popup/index.html',
   },
 });

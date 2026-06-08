@@ -3,7 +3,7 @@ import { DEFAULT_STATE, QueueState, STORAGE_KEY_STATE } from '../queue/types';
 // Queue state lives in sessionStorage, which is scoped per-tab by the browser.
 // Each ChatGPT tab has its own independent queue; they never share storage.
 // Storage survives page refresh within the tab but is cleared on tab close.
-
+ 
 export async function loadState(): Promise<QueueState> {
   let raw: string | null;
   try {

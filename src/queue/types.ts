@@ -16,11 +16,6 @@ export type QueueState = {
   currentId?: string;
 };
 
-export type TabLock = {
-  tabId: string;
-  heartbeatAt: number;
-};
-
 export type ErrorCode =
   | 'composer-not-found'
   | 'composer-write-failed'
@@ -36,8 +31,6 @@ export type DetectorEvent =
   | { type: 'error'; code: ErrorCode; message?: string };
 
 export const STORAGE_KEY_STATE = 'chatgpt-queue:v1:state';
-export const STORAGE_KEY_LOCK = 'chatgpt-queue:v1:lock';
-export const STORAGE_KEY_POSITION = 'chatgpt-queue:v1:position';
 
 export const DEFAULT_STATE: QueueState = {
   items: [],
@@ -46,5 +39,3 @@ export const DEFAULT_STATE: QueueState = {
 };
 
 export const IDLE_STABILITY_MS = 800;
-export const LOCK_STALE_MS = 10_000;
-export const LOCK_HEARTBEAT_MS = 3_000;

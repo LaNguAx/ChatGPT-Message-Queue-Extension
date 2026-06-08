@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { QueueApi } from '../queue/queue';
 import { QueueItem, QueueState } from '../queue/types';
 
-type Props = { state: QueueState; queue: QueueApi; readOnly: boolean };
+type Props = { state: QueueState; queue: QueueApi };
 
-export function PanelList({ state, queue, readOnly }: Props) {
+export function PanelList({ state, queue }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
   const [dragFrom, setDragFrom] = useState<number | null>(null);
 
   const beginEdit = (it: QueueItem) => {
-    if (readOnly) return;
     setEditingId(it.id);
     setEditText(it.text);
   };
@@ -26,7 +25,7 @@ export function PanelList({ state, queue, readOnly }: Props) {
         <li
           key={it.id}
           className={`item ${it.status}`}
-          draggable={!readOnly && editingId !== it.id}
+          draggable={editingId !== it.id}
           onDragStart={() => setDragFrom(idx)}
           onDragOver={(e) => e.preventDefault()}
           onDrop={() => {
@@ -54,20 +53,18 @@ export function PanelList({ state, queue, readOnly }: Props) {
               <>{it.text}</>
             )}
             {it.status === 'failed' && (
-              <div style={{ marginTop: 4, fontSize: 12, color: '#b91c1c' }}>
-                Error: {it.error ?? 'unknown'}
-              </div>
+              <div className="item-error">Error: {it.error ?? 'unknown'}</div>
             )}
           </div>
           <div className="item-actions">
             {it.status === 'failed' && (
               <>
-                <button onClick={() => queue.retry(it.id)} disabled={readOnly}>Retry</button>
-                <button onClick={() => queue.skip(it.id)} disabled={readOnly}>Skip</button>
+                <button onClick={() => queue.retry(it.id)}>Retry</button>
+                <button onClick={() => queue.skip(it.id)}>Skip</button>
               </>
             )}
             {it.status !== 'sending' && (
-              <button onClick={() => queue.remove(it.id)} disabled={readOnly} aria-label="Remove">×</button>
+              <button onClick={() => queue.remove(it.id)} aria-label="Remove">×</button>
             )}
           </div>
         </li>

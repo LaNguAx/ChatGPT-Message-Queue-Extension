@@ -41,15 +41,21 @@ A flat, minimal app icon, 128x128, no text. A rounded-corner square (corner radi
 
 Generate clean UI mockups that match the real extension UI described below. These appear on the store listing.
 
-Real UI to depict accurately:
-- The page behind is a ChatGPT-style chat interface, DARK theme (very dark gray background ~`#1f1f1f`, a centered conversation column, a message composer text box near the bottom-center).
-- The extension's panel floats in the BOTTOM-RIGHT corner. It is 360px wide, dark gray (`#1f2023`), rounded corners (10px), subtle shadow, thin border.
-- Panel header row: a small colored status dot, the title text "Prompt Queue", and on the right a gear icon button and a "—" collapse button.
-- Below the header: a multi-line text input with placeholder "Type a prompt...  (Ctrl+Enter to add)".
-- A button row: a gray "Add to queue" button on the left, and a green "Start" button (`#10a37f`, white text) on the right.
-- A vertical list of queued items. Each item is a rounded card showing the prompt text and a small "x" remove control. Item states: normal (pending), a green-tinted/blue-border item (sending), a dimmed item (done), and a red-bordered item with small red "Error: ..." text plus "Retry" and "Skip" buttons (failed).
-- A footer line in small muted text: "2 sent - 3 pending - 0 failed" style counts.
-- The collapsed state (for the hero) is just a small green rounded "pill" in the bottom-right showing a play/pause glyph and a count like "3 queued".
+Real UI to depict accurately (current redesigned UI):
+- The page behind is a ChatGPT-style chat interface, DARK theme (near-black background, a centered conversation column with neutral placeholder bubbles, a rounded message composer near the bottom center).
+- The extension's panel floats in the BOTTOM-RIGHT corner. It is about 360px wide, a dark gray surface (`#26282c`), 16px rounded corners, a soft drop shadow, and a thin 1px border (`#34373d`).
+- Panel header: on the LEFT a small rounded-square logo mark with a green gradient (`#12b48c` to `#0c8a68`) containing three white horizontal bars of decreasing opacity plus a small white play triangle, then the title "Prompt Queue" in white semibold, then a small green status dot. On the RIGHT two subtle (transparent) icon buttons: a "settings" sliders icon (two horizontal lines each with a small round knob) and a minimize dash.
+- Compose area: a rounded multi-line input (slightly lighter inset `#2d2f34`) with placeholder "Type a prompt...  (Ctrl+Enter to add)"; below it a row with a subtle "Add to queue" button on the left and a green primary button on the right that reads "Start" (with a small play triangle) or "Pause" (with a small pause glyph). Accent green is `#19b894` in dark mode.
+- Queue list: each item is its own rounded card (`#26282c`) containing, left to right: a faint six-dot drag handle, a small circular status icon, the prompt text, and a small "x" remove control on the right. Status icon + card states:
+  - pending: a muted gray clock outline
+  - sending: a blue spinner arc; the card has a faint blue tint
+  - done: a green check; the card is dimmed and its text has a strikethrough
+  - failed: a red warning triangle; the card has a faint red tint, a small red "Error: send-click-ignored" line under the text, and small "Retry" and "Skip" buttons
+  - reordering: a thin green accent line across the TOP edge of a card shows where a dragged item will drop
+- Footer: three small rounded pill chips reading like "1 sent", "2 pending", "1 failed". The "sent" chip turns green and the "failed" chip turns red when their count is greater than zero; "pending" stays neutral gray.
+- Optional settings drawer (below the list): a "Delay between messages" label with a value like "2.0s", a thin green slider, and small "Clear completed / Export / Import" buttons.
+- Collapsed state (for the hero): a small rounded "pill" in the bottom-right containing the green logo mark, a small status dot, the word "Queue", and a small green circular count badge (e.g., "3").
+- Style for all screenshots: flat, modern, crisp UI mockup (not photorealistic), high contrast, no OpenAI logo, no watermark, no real user data.
 
 ### 2a. Hero / collapsed pill
 
@@ -58,7 +64,7 @@ Real UI to depict accurately:
 | screenshot-01-hero.png | 1280x800 | `store/screenshots/screenshot-01-hero.png` |
 
 ```
-A 1280x800 product screenshot, dark theme. Background: a clean ChatGPT-style chat web page in dark mode (dark gray ~#1f1f1f, a centered conversation column with a couple of neutral placeholder chat bubbles, and a rounded message composer box near the bottom center). In the bottom-right corner, a small rounded "pill" button with a green gradient (#12b48c to #0c8a68), white text reading "3 queued" preceded by a small white play triangle, and a tiny status dot. Minimal, flat, modern, no real text content in the chat, no OpenAI logo, no watermark. Crisp UI mockup, not photorealistic.
+A 1280x800 product screenshot, dark theme, crisp flat UI mockup (not photorealistic). Background: a clean ChatGPT-style chat web page in dark mode (near-black background, a centered conversation column with a couple of neutral gray placeholder chat bubbles, and a rounded message composer box near the bottom center). In the bottom-right corner, a small rounded white-bordered "pill" on a dark surface (#26282c) containing: a small rounded-square logo mark with a green gradient (#12b48c to #0c8a68) holding three white horizontal bars of decreasing opacity and a tiny white play triangle, then a small green status dot, then the word "Queue" in light text, then a small green circular badge with the number "3". Soft shadow under the pill. No real text content in the chat, no OpenAI logo, no watermark.
 ```
 
 ### 2b. Expanded queue panel
@@ -68,7 +74,7 @@ A 1280x800 product screenshot, dark theme. Background: a clean ChatGPT-style cha
 | screenshot-02-queue-panel.png | 1280x800 | `store/screenshots/screenshot-02-queue-panel.png` |
 
 ```
-A 1280x800 product screenshot, dark theme. Same dark ChatGPT-style page in the background. In the bottom-right, an expanded floating panel, 360px wide, dark gray (#1f2023), rounded corners, subtle shadow. Top of panel: a small green status dot, the title "Prompt Queue", and on the right a gear icon and a long-dash collapse button. Below: a text input with faint placeholder "Type a prompt...". A button row with a gray "Add to queue" button and a green "Start" button (#10a37f, white text). Below that, a vertical list of 4 rounded item cards containing short generic prompt texts; show two as normal pending, one dimmed as "done", and one with a blue left edge labeled as sending. A small muted footer line reading "1 sent - 3 pending - 0 failed". Clean flat modern UI mockup, no OpenAI logo, no watermark.
+A 1280x800 product screenshot, dark theme, crisp flat UI mockup. Same dark ChatGPT-style page in the background. In the bottom-right, an expanded floating panel about 360px wide, dark gray surface (#26282c), 16px rounded corners, soft shadow, thin border. Header: a small rounded-square green-gradient logo mark (three white bars of decreasing opacity + a tiny white play triangle), the title "Prompt Queue" in white semibold, a small green status dot, and on the far right two faint icon buttons (a sliders "settings" icon and a minimize dash). Below the header: a rounded text input (slightly lighter inset) with faint placeholder "Type a prompt...", then a row with a subtle "Add to queue" button on the left and a green "Start" button with a small play triangle on the right (accent green #19b894). Below that, a vertical list of 4 rounded item cards; each card has a faint six-dot drag handle on the left, a small circular status icon, short generic prompt text, and a faint "x" on the right. Make one card "done" (dimmed, green check, text with a strikethrough), one "sending" (faint blue tint, small blue spinner), and two "pending" (muted gray clock icon); show a thin green accent line across the top edge of one pending card to indicate a drag drop position. Footer: three small rounded pill chips reading "1 sent" (green), "2 pending" (gray), "0 failed" (gray). No OpenAI logo, no watermark.
 ```
 
 ### 2c. Error recovery / auto-send
@@ -78,7 +84,7 @@ A 1280x800 product screenshot, dark theme. Same dark ChatGPT-style page in the b
 | screenshot-03-auto-send.png | 1280x800 | `store/screenshots/screenshot-03-auto-send.png` |
 
 ```
-A 1280x800 product screenshot, dark theme. Same dark ChatGPT-style page. The floating panel (bottom-right, 360px wide, dark gray, rounded) shows the queue list where one item card has a red border with small red text "Error: send-click-ignored" and two small buttons "Retry" and "Skip"; the other items look normal. The green "Start" button has changed to a gray "Pause" button to suggest a run in progress. Muted footer line "2 sent - 1 pending - 1 failed". Clean flat modern UI mockup, high contrast, no OpenAI logo, no watermark.
+A 1280x800 product screenshot, dark theme, crisp flat UI mockup. Same dark ChatGPT-style page. The floating panel (bottom-right, about 360px wide, dark gray #26282c, 16px rounded, soft shadow) with the "Prompt Queue" header (green logo mark, title, green status dot, sliders + minimize icons). The compose row shows a subtle "Add to queue" button and, because a run is in progress, a "Pause" button (with a small pause glyph) instead of Start. The queue list shows several rounded item cards: one "done" (dimmed, green check, strikethrough text), one "sending" (faint blue tint, blue spinner), one "pending" (gray clock), and one "failed" card with a faint red tint, a red warning-triangle status icon, a small red line reading "Error: send-click-ignored", and two small "Retry" and "Skip" buttons. Footer: three small pill chips reading "2 sent" (green), "1 pending" (gray), "1 failed" (red). High contrast, no OpenAI logo, no watermark.
 ```
 
 ---
@@ -102,7 +108,7 @@ A 440x280 marketing tile with a deep green background gradient (#0c8a68 to #12b4
 | marquee-1400x560.png | 1400x560 | `store/promo/marquee-1400x560.png` |
 
 ```
-A 1400x560 wide marketing banner. Left third: a deep green panel (gradient #0c8a68 to #12b48c) with the app logo mark and the title "Prompt Queue for ChatGPT" in bold white, plus the tagline "Queue prompts. Auto-send when done." in lighter white. Right two-thirds: a clean dark-mode mockup of the extension's floating queue panel (dark gray, rounded, a short list of queued prompt cards, a green Start button) sitting over a faint dark ChatGPT-style page. Flat, modern, high contrast, no OpenAI logo, no watermark, no photorealism.
+A 1400x560 wide marketing banner. Left third: a deep green panel (gradient #0c8a68 to #12b48c) with the app logo mark and the title "Prompt Queue for ChatGPT" in bold white, plus the tagline "Queue prompts. Auto-send when done." in lighter white. Right two-thirds: a clean dark-mode mockup of the redesigned floating queue panel (dark gray #26282c, 16px rounded, soft shadow) with a "Prompt Queue" header (green logo mark + title + sliders/minimize icons), a short list of rounded prompt cards each with a six-dot drag handle and a circular status icon (a green check, a blue spinner, gray clocks), a green "Start" button, and small footer pill chips, sitting over a faint dark ChatGPT-style page. Flat, modern, high contrast, no OpenAI logo, no watermark, no photorealism.
 ```
 
 ---

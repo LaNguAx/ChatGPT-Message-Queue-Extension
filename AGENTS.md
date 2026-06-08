@@ -6,12 +6,12 @@ Guidance for any AI coding agent (Claude Code, OpenAI Codex, Aider, Cursor, etc.
 
 ## Project snapshot
 
-- **What:** Chrome MV3 extension that queues prompts for chatgpt.com and auto-sends the next one when the current response finishes.
+- **What:** Chrome MV3 extension ("Prompt Queue for ChatGPT") that queues prompts for chatgpt.com and auto-sends the next one when the current response finishes. Not affiliated with OpenAI.
 - **Where it runs:** Content script injected at `document_idle` on `https://chatgpt.com/*`. No background service worker, no remote code, no network calls.
 - **Persistence:** `sessionStorage` (per-tab isolation). Queue survives refresh within a tab, not across tab close.
 - **UI:** React 19 rendered into a Shadow DOM root so ChatGPT's styles don't leak in and ours don't leak out.
 
-See `README.md` for end-user docs; `docs/superpowers/specs/` for the original design spec; `docs/superpowers/plans/` for the step-by-step implementation plan the codebase was built from.
+See `README.md` for end-user docs and the [Release QA checklist](README.md#release-qa-checklist) for live-DOM verification before releases.
 
 ## Commands
 
@@ -22,6 +22,8 @@ See `README.md` for end-user docs; `docs/superpowers/specs/` for the original de
 | `npm run build` | Production bundle into `dist/` |
 | `npm test` | Vitest with jsdom |
 | `npm run typecheck` | `tsc --noEmit` (strict + `noUncheckedIndexedAccess`) |
+| `npm run icons` | Rasterise `branding/icon.svg` → `public/icons/*.png` (sharp) |
+| `npm run package` | Zip `dist/` → `releases/<name>-<version>.zip` for store upload |
 
 **Gates for any change:** `npm run typecheck && npm test && npm run build` must all exit 0.
 
@@ -48,6 +50,8 @@ src/
 │   ├── PanelSettings.tsx delay slider, export/import, clear
 │   ├── theme.ts          follow ChatGPT's light/dark class
 │   └── panel.css         all panel styles, injected as raw text
+├── popup/                static toolbar popup (no JS, no permissions)
+│   └── index.html        "open chatgpt.com to use the queue" card
 └── util/                 uuid, logger
 ```
 
@@ -66,7 +70,7 @@ When a change wants to span two files, check whether the boundary is wrong. Usua
 ## Testing
 
 - **Unit tests (jsdom)** cover pure logic: queue transitions, storage round-trip, selector resolution, detector state machine, sender write+click sequence.
-- **Live DOM** behaviour is verified by a 12-step manual runbook in `docs/superpowers/specs/`. Unit tests can't prove the extension works against the real chatgpt.com.
+- **Live DOM** behaviour is verified by the 10-step Release QA checklist in `README.md`. Unit tests can't prove the extension works against the real chatgpt.com.
 - **Do not disable a test to get CI green.** Fix the test or delete it with a justification in the commit.
 
 ## Sensitive / load-bearing code
@@ -88,13 +92,13 @@ Fix procedure:
 2. DevTools → inspect the failing element.
 3. Prepend a new selector to the relevant array in `src/content/selectors.ts`.
 4. Update / add a test fixture in `tests/selectors.test.ts`.
-5. `npm run build`, reload the extension, walk the manual runbook.
+5. `npm run build`, reload the extension, walk the [Release QA checklist](README.md#release-qa-checklist).
 6. Commit with a `fix(selectors): …` message.
 
 ## What not to do
 
 - Do not re-introduce `chrome.storage` or a cross-tab lock. The current per-tab design is intentional.
 - Do not add a background service worker without a concrete need. The whole extension works without one.
-- Do not skip the manual runbook after touching `selectors.ts`, `detector.ts`, or `sender.ts`.
-- Do not generate or edit the 128 px icon at build time. It's a committed asset; if the icon design changes, regenerate manually from `public/icons/icon.svg` and overwrite the PNG.
+- Do not skip the Release QA checklist after touching `selectors.ts`, `detector.ts`, or `sender.ts`.
+- Do not hand-edit the icon PNGs. They are generated from `branding/icon.svg` by `npm run icons`. If the icon design changes, edit the SVG and re-run that script, which overwrites all sizes in `public/icons/`.
 - Do not add analytics, telemetry, or remote config. The extension is strictly local.

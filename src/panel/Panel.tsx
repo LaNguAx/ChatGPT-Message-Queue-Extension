@@ -42,7 +42,7 @@ export function Panel({ queue }: Props) {
 
   if (collapsed) {
     return (
-      <button className="collapsed" onClick={() => setCollapsed(false)} aria-label="Open ChatGPT Queue">
+      <button className="collapsed" onClick={() => setCollapsed(false)} aria-label="Open Prompt Queue for ChatGPT">
         <span className={`dot ${dotClass}`} />
         <span>
           {state.running ? '▶' : '⏸'} {pending} queued
@@ -52,13 +52,13 @@ export function Panel({ queue }: Props) {
   }
 
   return (
-    <div className="panel" role="region" aria-label="ChatGPT Queue">
+    <div className="panel" role="region" aria-label="Prompt Queue for ChatGPT">
       <div className="header">
         <h1>
-          <span className={`dot ${dotClass}`} style={{ display: 'inline-block', marginRight: 6 }} />
-          ChatGPT Queue
+          <span className={`dot ${dotClass} header-dot`} />
+          Prompt Queue
         </h1>
-        <div style={{ display: 'flex', gap: 4 }}>
+        <div className="header-actions">
           <button onClick={() => setShowSettings((s) => !s)} aria-label="Settings">⚙</button>
           <button onClick={() => setCollapsed(true)} aria-label="Collapse">—</button>
         </div>
@@ -72,9 +72,9 @@ export function Panel({ queue }: Props) {
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={onKeyDown}
         />
-        <div style={{ display: 'flex', gap: 6 }}>
+        <div className="add-row">
           <button onClick={onAdd} disabled={!draft.trim()}>Add to queue</button>
-          <div style={{ flex: 1 }} />
+          <div className="spacer" />
           {state.running ? (
             <button onClick={() => queue.pause()}>Pause</button>
           ) : (
@@ -84,9 +84,9 @@ export function Panel({ queue }: Props) {
           )}
         </div>
 
-        <PanelList state={state} queue={queue} readOnly={false} />
+        <PanelList state={state} queue={queue} />
 
-        {showSettings && <PanelSettings state={state} queue={queue} readOnly={false} />}
+        {showSettings && <PanelSettings state={state} queue={queue} />}
       </div>
 
       <div className="footer">

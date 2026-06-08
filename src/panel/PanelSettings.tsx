@@ -2,9 +2,9 @@ import { useRef } from 'react';
 import { QueueApi } from '../queue/queue';
 import { QueueState } from '../queue/types';
 
-type Props = { state: QueueState; queue: QueueApi; readOnly: boolean };
+type Props = { state: QueueState; queue: QueueApi };
 
-export function PanelSettings({ state, queue, readOnly }: Props) {
+export function PanelSettings({ state, queue }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const exportJson = () => {
@@ -25,8 +25,8 @@ export function PanelSettings({ state, queue, readOnly }: Props) {
   };
 
   return (
-    <div style={{ borderTop: '1px solid #eee', paddingTop: 8, display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div className="settings">
+      <label className="settings-row">
         <span>Delay between messages: {(state.delayMs / 1000).toFixed(1)}s</span>
         <input
           type="range"
@@ -35,13 +35,12 @@ export function PanelSettings({ state, queue, readOnly }: Props) {
           step={500}
           value={state.delayMs}
           onChange={(e) => queue.setDelay(Number(e.target.value))}
-          disabled={readOnly}
         />
       </label>
-      <div style={{ display: 'flex', gap: 6 }}>
-        <button onClick={() => queue.clearCompleted()} disabled={readOnly}>Clear completed</button>
+      <div className="settings-actions">
+        <button onClick={() => queue.clearCompleted()}>Clear completed</button>
         <button onClick={exportJson}>Export</button>
-        <button onClick={() => fileRef.current?.click()} disabled={readOnly}>Import</button>
+        <button onClick={() => fileRef.current?.click()}>Import</button>
         <input
           ref={fileRef}
           type="file"

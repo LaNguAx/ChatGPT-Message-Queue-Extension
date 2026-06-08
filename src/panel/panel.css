@@ -249,6 +249,17 @@
   flex: 1;
 }
 
+.pq-hint {
+  margin: 0;
+  padding: 7px 10px;
+  border-radius: 9px;
+  border-left: 3px solid var(--pq-accent);
+  background: var(--pq-accent-soft);
+  color: var(--pq-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 /* ---------- Buttons ---------- */
 .pq-btn {
   display: inline-flex;
@@ -429,6 +440,9 @@
   flex-direction: column;
   gap: 3px;
 }
+.pq-item__body--editable {
+  cursor: text;
+}
 .pq-item__text {
   white-space: pre-wrap;
   word-break: break-word;
@@ -500,8 +514,24 @@
   font-weight: 600;
   color: var(--pq-text);
 }
-.pq-empty__hint {
+.pq-empty__steps {
+  margin: 2px 0 0;
+  padding: 0 0 0 20px;
+  text-align: left;
   font-size: 12px;
+  color: var(--pq-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.pq-empty__steps li {
+  padding-left: 2px;
+}
+.pq-list-hint {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--pq-muted);
 }
 
 /* ---------- Settings ---------- */
